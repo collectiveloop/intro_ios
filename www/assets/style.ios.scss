@@ -289,23 +289,7 @@
 
   /*Fin de contacts*/
   @media (max-height: 667px) {
-/*
-.list-ios {
-margin-top: 15px;
-}
-    .searchbar-toolbar{
-      margin: 88px 0px;
-    }
-
-    .searchbar-list{
-      margin-top: 50px;
-    }
-
-    .scroll-content {
-      padding: 8px !important;
-    }
-    */
-
+    
     .searchbar-list .scroll-content{
       margin-bottom: 95px !important;
     }
@@ -316,35 +300,9 @@ margin-top: 15px;
   }
 
   @media (min-height: 667px) {
-/*
-    .searchbar-toolbar{
-      margin: 108px 0px;
-    }
-
-    .searchbar-list{
-      margin-top: 30px;
-    }
-
-    .searchbar-list .scroll-content{
-      margin-bottom: 69px !important;
-    }
-    */
-
     .form-intros .label-ios.margin{
       margin-top:20px !important;
     }
-  }
-
-  @media (min-height: 1024px) {
-    /*
-    .searchbar-toolbar{
-      margin: 172px 0px;
-    }
-
-    .searchbar-list{
-      margin-top: 30px;
-    }
-    */
   }
 
   @media (min-height: 1024px) {
@@ -370,9 +328,6 @@ margin-top: 15px;
       height: 44px !important;
     }
 
-    .scroll-content {
-      margin-top: 50px !important;
-    }
   }
   @media (min-width: 320px) and (max-width: 374px) {
     .header .toolbar .toolbar-title {
