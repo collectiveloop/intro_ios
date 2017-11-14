@@ -58,6 +58,9 @@ export class SearchContactsPage implements OnInit {
   }
 
   private getSearch(): void {
+    this.messages.showMessage({
+      content: this.loadingMessage
+    });
     let params = [
       this.translateService.getDefaultLang(),
       'search',
