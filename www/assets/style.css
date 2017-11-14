@@ -114,6 +114,10 @@ h3 ion-icon {
   min-height: inherit;
 }
 
+.tabs .tabbar .tab-button[disabled] {
+  opacity:1 !important;
+}
+
 .tabs .tabbar .tab-button[aria-selected=true] .tab-button-text {
   color: #FF3F1D;
   font-size: 12px;
