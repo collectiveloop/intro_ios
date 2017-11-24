@@ -15,14 +15,10 @@
     padding: 0;
   }
 
-  .message-center {
-    padding-right: 16px;
-  }
-
   .toolbar .back-button-text,
   .toolbar .icon,
   .toolbar .toolbar-title {
-    color: #d53c0e !important;
+    color: #FF3F1D !important;
     text-decoration: none;
     background: none !important;
   }
@@ -31,14 +27,14 @@
     color: #cccccc;
   }
 
-  .list-ios > .item-block:last-child,
-  .list-ios > .item-wrapper:last-child .item-block {
-    border-bottom: 0;
+  .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+      border-bottom: 0px;
   }
 
-  ion-item-sliding ion-item-options {
-    border-bottom: 1px solid #d64b12 !important;
+  ion-item-sliding ion-item-options{
+      border-bottom: 1px solid #FD4D3E !important;
   }
+
   /*barra de navegación*/
   .tabs-md .tabbar {
     width: 100%;
@@ -68,8 +64,8 @@
 
   .button-footer {
     color: #ffffff !important;
-    border-top: 1px solid #d53c0e !important;
-    background-color: #d53c0e !important;
+    border-top: 1px solid #FF3F1D !important;
+    background-color: #FF3F1D !important;
     text-transform: uppercase !important;
   }
 
@@ -79,8 +75,8 @@
   }
 
   .button-footer.activated {
-    border-top: 1px solid #d64b12 !important;
-    background-color: #d64b12 !important;
+    border-top: 1px solid #FD4D3E !important;
+    background-color: #FD4D3E !important;
   }
 
   .big-label {
@@ -103,15 +99,15 @@
 
   .image-setting {
     float: left;
-    position: relative;
+    position:relative;
     /* padding: 8px; */
     margin: 40px 0 8px 35px;
     width: 100px;
     height: 100px;
   }
 
-  .image-setting ion-spinner {
-    margin: auto;
+  .image-setting ion-spinner{
+    margin: auto auto;
     text-align: center;
     position: absolute;
     top: 30px;
@@ -141,21 +137,15 @@
     -webkit-transform: scaleY(1.2);
     -o-transform: scaleY(1.2);
     transform: scaleY(1.3);
-    color: #d53c0e;
+    color: #FF3F1D;
     letter-spacing: 0.4px;
     display: inline-table;
     margin: 25px auto;
     text-align: center;
   }
 
-  .image-setting div,
   .image-setting img {
     width: 186px;
-  }
-
-  .image-setting .image-container {
-    background-size: 100%;
-    background-position: center;
   }
   /*dashboard*/
   .card-ios {
@@ -186,7 +176,7 @@
   .card-ios .footer .label {
     font-family: 'Helvetica Ltsd';
     width: 100%;
-    color: #d53c0e !important;
+    color: #FF3F1D !important;
     text-align: center;
     font-size: 18px;
     letter-spacing: 1px;
@@ -243,16 +233,10 @@
     height: 70px;
   }
 
-  .card-content-ios .image .image-container,
   .card-content-ios .image img {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-  }
-
-  .card-content-ios .image .image-container {
-    background-size: 100%;
-    background-position: center;
   }
 
   .card-ios .footer {
@@ -263,200 +247,64 @@
     padding-bottom: 10px;
   }
   /*fin dashboard*/
+
   /*contacts*/
   .header .toolbar-segment {
     height: inherit !important;
   }
 
-  .header .toolbar-segment .segment-button {
-    border-color: #d53c0e;
-    color: #d53c0e;
+  .header .toolbar-segment .segment-button{
+    border-color:#FF3F1D;
+    color: #FF3F1D;
     background-color: #ffffff;
   }
 
-  .header .toolbar-segment .segment-button.segment-activated {
-    background-color: #d53c0e !important;
+  .header .toolbar-segment .segment-button.segment-activated{
+    background-color: #FF3F1D !important;
     color: #ffffff;
   }
 
   .grace.list-ios.has-infinite-scroll .scroll-content {
-    padding-right: 0 !important;
-    padding-top: 0 !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
   }
 
-  .grace .list-ios > .item-block:first-child,
-  .grace .list-ios > .item-block:last-child {
-    border: 0 !important;
+  .grace .list-ios > .item-block:first-child, .grace .list-ios > .item-block:last-child{
+      border:0px !important;
   }
 
-  .list-format.item-block .item-inner {
-    border-bottom: 1px solid #d53c0e !important;
+  .list-format.item-block .item-inner{
+    border-bottom: 1px solid #FF3F1D !important;
   }
 
   .list-format .label {
-    margin: 5px 20px 0 0;
+    margin: 5px 20px 0px 0px;
   }
 
   .list-ios {
-    margin: 0;
+    margin: 0px;
   }
 
-  .scroll-content .conversation {
-    margin-bottom: 30px;
-  }
 
-  .conversation .list-format.item-block .item-inner {
-    border-bottom: 0 !important;
-  }
-  /*chat messages*/
-  .message {
-    margin: 14px 0 20px;
-  }
 
-  .conversation .message .content {
-    clear: both;
-    white-space: normal;
-    font-size: 12px;
-    margin: 0;
-    padding: 2px;
-  }
-
-  .conversation .message .user-label {
-    text-transform: capitalize;
-    width: 100%;
-    position: absolute;
-    top: -12px;
-    padding: 0;
-    bottom: 0;
-    line-height: normal;
-    font-size: 10px;
-    color: rgba(0, 0, 0, .35);
-  }
-
-  .conversation .message.left .user-label {
-    text-align: left;
-  }
-
-  .conversation .message.right .user-label {
-    text-align: right;
-    right: 6px;
-  }
-
-  .conversation .message .time-label {
-    clear: both;
-    float: right;
-    position: absolute;
-    text-align: right;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    right: 0;
-    bottom: -12px;
-    font-size: 10px;
-    color: rgba(0, 0, 0, .35);
-  }
-
-  .conversation .message:first-child {
-    margin: 16px 0 8px;
-  }
-
-  .conversation .message.left {
-    border-radius: 20px 20px 20px 20px;
-    float: left;
-    margin-left: 10px;
-  }
-
-  .conversation .message.left.type1 {
-    background-color: #F5AE9A;
-  }
-
-  .conversation .message.left.type1 .content {
-    color: #3d3d3e;
-  }
-
-  .conversation .message.left.type2:after {
-    border-color: transparent #FFFFFF transparent transparent;
-  }
-
-  .conversation .image.left {
-    float: left;
-    padding-right: 4px;
-  }
-
-  .conversation .image.right {
-    float: right;
-    padding-left: 4px;
-  }
-
-  .conversation .message.left:after {
-    border-width: 0 20px 20px 0;
-    top: 5px;
-    left: -10px;
-  }
-
-  .conversation .message.left.type1:after {
-    border-color: transparent #F5AE9A transparent transparent;
-  }
-
-  .conversation .message.left.type2 {
-    background-color: #ffffff;
-  }
-
-  .conversation .message.left.type2 .content {
-    color: #3d3d3e;
-  }
-
-  .conversation .message.right {
-    background-color: #FE7F5A;
-    border-radius: 20px 20px 20px 20px;
-    float: right;
-    margin-right: 10px;
-  }
-
-  .conversation .message.right .content {
-    color: #FFFFFF;
-  }
-
-  .conversation .message.right:after {
-    border-width: 0 0 20px 20px;
-    border-color: transparent transparent transparent #FE7F5A;
-    top: 5px;
-    right: -10px;
-  }
-
-  .message-form {
-    background-color: #d53c0e;
-  }
-
-  .message-form .input-container {
-    width: 70%;
-    padding: 8px 0;
-    margin: auto;
-  }
-
-  .message-form .input-container .text-input {
-    background-color: #FFFFFF;
-    padding: 4px;
-    width: 100%;
-    margin: 0;
-    border-radius: 5px;
-  }
-  /*fin de chat messages*/
   /*Fin de contacts*/
   @media (max-height: 667px) {
-    .searchbar-list .scroll-content {
+    
+    .searchbar-list .scroll-content{
       margin-bottom: 95px !important;
     }
 
-    .form-intros .label-ios.margin {
-      margin-top: 0 !important;
+    .form-intros .label-ios.margin{
+      margin-top:0px !important;
     }
   }
+
   @media (min-height: 667px) {
-    .form-intros .label-ios.margin {
-      margin-top: 20px !important;
+    .form-intros .label-ios.margin{
+      margin-top:20px !important;
     }
   }
+
   @media (min-height: 1024px) {
     .toolbar-ios .segment-button {
       max-width: 200px;
@@ -465,6 +313,7 @@
       line-height: 3.5rem;
     }
   }
+
   @media (min-height: 1366px) {
     .toolbar-ios .segment-button {
       max-width: 300px;
@@ -473,6 +322,7 @@
       line-height: 3.5rem;
     }
   }
+
   @media (max-width: 320px) {
     .header .toolbar {
       height: 44px !important;

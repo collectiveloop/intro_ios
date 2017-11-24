@@ -2,7 +2,7 @@ import { Component, ViewChild, } from '@angular/core';
 import { TabService } from './tabs.service';
 import { HomePage } from '../dashboard/home';
 import { ListContactsPage } from '../contacts/list_contacts';
-import { ReceivedMessagesPage } from '../messages/received_messages';
+import { ListMessagesPage } from '../messages/list_messages';
 import { AddIntrosPage } from '../intros/add_intros';
 import { LoginPage } from '../login/login';
 import { MenuController, NavController, NavParams } from 'ionic-angular';
@@ -18,13 +18,13 @@ export class TabsPage {
     HomePage,
     ListContactsPage,
     AddIntrosPage,
-    ReceivedMessagesPage
+    ListMessagesPage
   ];
   defaultTabs: any = [
     HomePage,
     ListContactsPage,
     AddIntrosPage,
-    ReceivedMessagesPage
+    ListMessagesPage
   ];
   currentTab: any = 0;
 
@@ -36,21 +36,28 @@ export class TabsPage {
   }
 
   public tabChange(tab: any) {
+    console.log("tab.index");
+    console.log(tab.index);
     this.currentTab = tab.index;
     let max = this.tabs.length;
+    console.log(document.getElementById('tab-t0-0'));
     for (let i = 0; i < max; i++) {
       if (i === tab.index) {
+        console.log(i);
         this.tabs[i] = null;
         if (document.getElementById('tab-t0-' + i) !== undefined && document.getElementById('tab-t0-' + i) !== null)
           document.getElementById('tab-t0-' + i).setAttribute('disabled', 'disabled');
+
         if (document.getElementById('tab-t1-' + i) !== undefined && document.getElementById('tab-t1-' + i) !== null)
           document.getElementById('tab-t1-' + i).setAttribute('disabled', 'disabled');
+
       } else {
         this.tabs[i] = this.defaultTabs[i];
         if (document.getElementById('tab-t0-' + i) !== undefined && document.getElementById('tab-t0-' + i) !== null)
           document.getElementById('tab-t0-' + i).removeAttribute('disabled');
         if (document.getElementById('tab-t1-' + i) !== undefined && document.getElementById('tab-t1-' + i) !== null)
           document.getElementById('tab-t1-' + i).removeAttribute('disabled');
+
       }
     }
   }

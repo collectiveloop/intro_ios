@@ -43,16 +43,13 @@ h3 ion-icon {
 }
 
 .no-margin-top {
-  margin-top: 0px !important;
-}
-
-.no-margin-left {
-  margin-left: 0px !important;
+  margin-top:0px !important;
 }
 
 .center {
   text-align: center;
 }
+
 
 .left {
   text-align: left;
@@ -76,15 +73,15 @@ h3 ion-icon {
   margin-top: 25px;
 }
 
-.list {
+.list{
   margin: 0px;
 }
 
-.contact {
+.contact{
   position: relative;
 }
 
-.contact .button-absolute {
+.contact .button-absolute{
   position: absolute;
   bottom: 0px;
   right: 0px;
@@ -92,14 +89,14 @@ h3 ion-icon {
 }
 
 .item-input-has-focus .label-md[stacked], .input-has-focus .label[stacked], .item-input-has-focus .label[floating], .input-has-focus .label[floating] {
-  color: #d53c0e;
+  color: #FF3F1D;
 }
 
 /*barra de navegación*/
 
 .tabs .tabbar {
   height: 50px;
-  background-color: #d53c0e;
+  background-color: #FF3F1D;
 }
 
 .footer .toolbar {
@@ -118,11 +115,11 @@ h3 ion-icon {
 }
 
 .tabs .tabbar .tab-button[disabled] {
-  opacity: 1 !important;
+  opacity:1 !important;
 }
 
 .tabs .tabbar .tab-button[aria-selected=true] .tab-button-text {
-  color: #d53c0e;
+  color: #FF3F1D;
   font-size: 12px;
 }
 
@@ -222,28 +219,29 @@ ion-navbar.toolbar {
   border-top: 0px;
   background: none;
   border-bottom: 1px solid;
-  border-bottom-color: #d53c0e;
+  border-bottom-color: #FF3F1D;
 }
 
-.searchbar-toolbar {
+.searchbar-toolbar{
   background-color: #EDEEF0 !important;
-  z-index: 4;
-  width: 100%;
+    z-index: 4;
+    width: 100%;
 }
 
-.searchbar-toolbar .searchbar-input-container {
+.searchbar-toolbar .searchbar-input-container{
   padding: 5px;
 }
 
-.searchbar input {
+.searchbar input{
   background: none;
   background-color: inherit !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
-.searchbar .searchbar-search-icon {
+.searchbar .searchbar-search-icon{
   top: 15px;
+
 }
 
 .form-style .row .col {
@@ -254,6 +252,8 @@ ion-navbar.toolbar {
 .item {
   padding-left: 0px;
 }
+
+.text-input {}
 
 .lower-case input {
   text-transform: lowercase;
@@ -340,7 +340,7 @@ ion-navbar.toolbar {
 
 .button-link .button-inner {
   font-weight: normal !important;
-  color: #d53c0e !important;
+  color: #FF3F1D !important;
 }
 
 .form-style .fab {
@@ -401,8 +401,8 @@ ion-navbar.toolbar {
   padding: 22px 0px 22px 0px;
   width: 35%;
   font-size: 16px;
-  border-top: 1px solid #d53c0e;
-  background-color: #d53c0e;
+  border-top: 1px solid #FF3F1D;
+  background-color: #FF3F1D;
 }
 
 .button.button-form .button-inner {
@@ -412,17 +412,17 @@ ion-navbar.toolbar {
 }
 
 .button.button-form.activated {
-  border-top: 1px solid #d64b12 !important;
-  background-color: #d64b12 !important;
+  border-top: 1px solid #FD4D3E !important;
+  background-color: #FD4D3E !important;
 }
 
 .button-outline.button-form {
-  border: 1px solid #d64b12;
+  border: 1px solid #FD4D3E;
   background-color: #FFFFFF;
 }
 
 .button-outline.button-form.activated {
-  border: 1px solid #d64b12 !important;
+  border: 1px solid #FD4D3E !important;
 }
 
 .button-outline.button-form.activated .button-inner {
@@ -430,7 +430,7 @@ ion-navbar.toolbar {
 }
 
 .button-outline.button-form .button-inner {
-  color: #d53c0e;
+  color: #FF3F1D;
 }
 
 .button.button-form.large-button {
@@ -443,17 +443,23 @@ ion-menu ion-list {
   padding: 8px;
 }
 
-ion-item-sliding .button-ios-danger, ion-item-sliding .button-md-danger, ion-item-sliding .button-danger {
-  background-color: #d64b12;
-  padding: 8px !important;
+ion-item-sliding .item{
+    padding-left: 16px;
 }
 
-ion-item-sliding, ion-item-sliding .contact {
-  background-color: #EDEEF0 !important;
+
+
+ion-item-sliding .button-ios-danger, ion-item-sliding .button-md-danger, ion-item-sliding .button-danger{
+    background-color: #FD4D3E;
+    padding: 8px !important;
 }
 
-ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-options .button .button-inner {
-  color: #ffffff;
+ion-item-sliding, ion-item-sliding .contact{
+    background-color: #EDEEF0 !important;
+}
+
+ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-options .button .button-inner{
+    color: #ffffff;
 }
 
 .grace {
@@ -463,19 +469,15 @@ ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-op
 /*dashboard*/
 
 /*AddContact*/
-
-.contact-device {
-  background-color: #d53c0e;
-  color: #FFFFFF;
+.contact-device{
+  background-color: #FF3F1D;
+  color:#FFFFFF;
 }
 
-.contact-device ion-icon {
-  color: #FFFFFF;
+.contact-device ion-icon{
+  color:#FFFFFF;
   font-size: 50px;
-  font-size: 45px;
-  margin: auto;
 }
-
 /*Fin de AddContact*/
 
 .card {
@@ -516,32 +518,13 @@ ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-op
   background-position-y: center;
 }
 
-/***/
-
-.list .image.small-image ion-spinner {
-  height: 40px;
-  margin: 20% 0px 0px;
-}
-
-.list .image.small-image img {
-  width: 40px;
-  height: 40px;
-  margin: 20% 0px 0px;
-}
-
-.list .image.small-image div {
-  width: 40px;
-  height: 40px;
-  margin: 20% 0px 0px;
-}
-
 .list-format.item-block .item-inner button {
   width: auto;
   float: right;
 }
 
 .list-format.item-block .item-inner button.button-default {
-  background-color: #d53c0e;
+  background-color: #FF3F1D;
 }
 
 .list-format.item-block .item-inner button.button-default.button-md-danger, .list-format.item-block .item-inner button.button-default.button-ios-danger {
@@ -556,12 +539,12 @@ ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-op
   margin: 0px 0px 0px 0px;
 }
 
-.list-format button.contact {
+.list-format button.contact{
   background-color: #0EA8F2 !important;
 }
 
-.profile {
-  margin-top: 8px;
+.profile{
+  margin-top:8px;
   display: inherit;
 }
 
@@ -570,10 +553,10 @@ ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-op
 }
 
 .profile .label {
-  color: #d53c0e;
+  color:#FF3F1D;
 }
 
-.form-intros .label, .form-intros label {
+.form-intros .label, .form-intros label{
   color: #4C4C4C;
   font-size: 1.2rem;
   display: inline-grid;
@@ -583,23 +566,11 @@ ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-op
   margin-top: 20px !important;
 }
 
-.form-intros .text-input {
-  margin-top: 20px !important;
+.checkbox-item{
+  border-bottom:0px !important;
 }
 
-.checkbox-item {
-  border-bottom: 0px !important;
-}
-
-.checkbox-item .label {
-  margin: 13px 0px 13px 0px;
-}
-
-.detail-intros .text-input[disabled], .detail-intros .checkbox-disabled, .detail-intros .item.item-checkbox-disabled ion-label {
-  opacity: .8;
-}
-
-.intros::before {
+.intros::before{
   background: none;
 }
 
@@ -607,35 +578,35 @@ ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-op
   background: none;
   display: initial;
   height: 45px;
-  min-height: 45px;
+  min-height:45px;
 }
 
 .intros .button-intro {
   border-radius: 0px;
-  width: 100%;
-  margin: 0px;
-  padding: 0px;
-  border-top: 1px solid #d53c0e !important;
+  width:100%;
+  margin:0px;
+  padding:0px;
+  border-top: 1px solid #FF3F1D !important;
   background-color: #ffffff !important;
   height: 45px;
 }
 
 .intros .button-intro.activated {
-  border-top: 1px solid #d64b12 !important;
-  background-color: #d64b12 !important;
+  border-top: 1px solid #FD4D3E !important;
+  background-color: #FD4D3E !important;
 }
 
-.intros .button-intro.activated .button-inner {
+.intros  .button-intro.activated .button-inner {
   color: #ffffff !important;
 }
 
-.intros .button-intro .button-inner {
-  color: #d53c0e !important;
+.intros  .button-intro .button-inner {
+  color: #FF3F1D !important;
   text-transform: initial;
-  font-size: 18px;
+  font-size:18px;
 }
 
-.loading-wrapper {
+.loading-wrapper{
   text-align: center;
 }
 
@@ -657,195 +628,73 @@ ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-op
   }
 }
 
-ion-alert .alert-title {
+ion-alert .alert-title{
   font-size: 14px !important;
 }
 
-ion-alert .delete {
-  background-color: #d64b12 !important;
+ion-alert .delete{
+  background-color: #FD4D3E !important;
 }
 
-ion-alert .delete .button-inner {
+ion-alert .delete .button-inner{
   color: #ffffff !important;
 }
 
-.final-card {
-  position: relative;
-  margin: auto;
-  background-image: url("../assets/images/final.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  margin-top: 0px;
-  width: 300px;
-  height: 350px;
+.final-card{
+    position:relative;
+    margin: auto;
+    background-image: url("../assets/images/final.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    margin-top: 0px;
+    width: 300px;
+    height: 350px;
 }
 
-.final-card .image {
-  position: absolute;
+.final-card .image{
+    position: absolute;
 }
 
-.final-card .image .image-container {
-  border: 2px solid #d53c0e !important;
-  background-size: 100%;
-  background-position: center;
+.final-card .image img{
+    border: 2px solid #FF3F1D !important;
 }
 
-.final-card .image.right {
-  top: 55%;
-  right: -5%;
+.final-card .image.right{
+    top: 55%;
+    right: -5%;
 }
 
-.final-card .image.left {
-  top: 55%;
-  left: -5%;
+.final-card .image.left{
+    top: 55%;
+    left: -5%;
 }
 
-.final-card .image.top {
-  top: 0;
-  left: 25%;
+.final-card .image.top{
+    top: 0;
+    left:25%;
 }
 
-.final-card .image.top .image-container {
-  width: 150px;
-  height: 150px;
-  vertical-align: middle;
-  text-align: center;
-  background-color: #ffffff;
+.final-card .image.top img{
+    min-width: 150px;
+    min-height: 150px;
 }
 
-.final-card .image.top .image-container .spinner {
-  top: 45px;
+.final-card .image .green-icon{
+    border-radius: 50%;
+    background-color: #76FF03;
+    position: absolute;
+    bottom: 3px;
+    width: 12px;
+    height: 12px;
+    right: 6px;
 }
 
-.final-card .image .green-icon {
-  border-radius: 50%;
-  background-color: #76FF03;
-  position: absolute;
-  bottom: 3px;
-  width: 12px;
-  height: 12px;
-  right: 6px;
-}
-
-.final-card .message {
-  bottom: 0px;
-  position: absolute;
-  text-align: center;
-  margin: auto;
-  width: 100%;
-  max-width:100% !important;
-}
-
-.final-card .message:after {
-  max-width:0;
-  border-style: none;
-}
-
-.image-join {
-  display: flex;
-}
-
-.image-join .crop {
-  margin-left: -8px;
-}
-
-.messages h3 {
-  margin-top: 0px !important;
-  margin-left: 40px;
-  vertical-align: middle;
-  width: 100%;
-  color: #111111 !important;
-}
-
-.messages h2 {
-  margin-top: 0px !important;
-  margin-left: 40px;
-  vertical-align: middle;
-  font-size: inherit;
-  white-space: normal;
-  width: 100%;
-}
-
-.messages .list-format .label {
-  margin: 0px;
-}
-
-.messages .label .icon {
-  font-size: 25px;
-  position: absolute;
-  display: flex;
-  right: 15px;
-  top: 30%;
-  color: #d53c0e !important;
-}
-
-/*chat messages*/
-
-.conversation .list-format .label {
-  margin: 0px !important;
-}
-
-.conversation .image {
-  width: 44px;
-  height: 48px;
-  text-align: center;
-}
-
-.has-refresher>.scroll-content {
-  border-top: 0px;
-}
-
-.message-container {
-  height: calc(100% - 68px);
-  overflow-x: hidden;
-  padding: 0 16px;
-  margin-bottom: 5px;
-}
-
-.message {
-  color: #000;
-  font-size: 15px;
-  padding: 8px;
-  position: relative;
-  margin: 8px 0;
-  max-width: auto;
-  word-wrap: break-word;
-  white-space: normal;
-  z-index: -1;
-  min-width: 110px;
-  max-width: 80%;
-}
-
-.message:after {
-  position: absolute;
-  max-width: 83%;
-  content: "";
-  width: 0;
-  height: 0;
-  border-style: solid;
-}
-/*Contact us*/
-.contact-us .text-area{
-  height: 150px;
-  border: 1px solid #ed987e;
-}
-
-.contact-us .input-has-focus .text-area{
-  border: 1px solid #d53c0e;
-}
-
-.contact-us .input-has-focus ion-icon{
-  color: #d53c0e;
-}
-
-/*Fin d econtact us*/
-
-ion-footer.conversation .toolbar {
-  min-height: initial;
-}
-
-ion-footer.conversation .message-form {
-  position: relative;
+.final-card .message{
+    bottom: 0px;
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    width: 100%;
 }
 
 @media (min-width: 360px) {
@@ -861,10 +710,11 @@ ion-footer.conversation .message-form {
 }
 
 @media (max-height: 568px) {
-  .final-card .image.right {
-    right: 0%;
-  }
-  .final-card .image.left {
-    left: 0%;
-  }
+    .final-card .image.right{
+        right: 0%;
+    }
+
+    .final-card .image.left{
+        left: 0%;
+    }
 }
