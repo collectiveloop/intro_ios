@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="sappitotech.ionic.introapp" version="0.0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Intro Pro</name>
+    <name>Intro</name>
     <description>Connect with others.</description>
     <author email="junior@sappitotech.com" href="">Sappito Team</author>
     <content src="index.html" />
@@ -92,7 +92,7 @@
     <allow-navigation href="http://192.168.1.143:8101" />
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
-    <engine name="ios" spec="^4.4.0" />
+    <engine name="ios" spec="~4.5.4" />
     <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
@@ -119,7 +119,7 @@
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.243179874931-beqb80o5867005il5jgpp64h1cigp1cv" />
+        <variable name="REVERSED_CLIENT_ID" value="243179874931-beqb80o5867005il5jgpp64h1cigp1cv.apps.googleusercontent.com" />
     </plugin>
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="144792272803845" />
@@ -137,4 +137,5 @@
     <plugin name="cordova-plugin-linkedin" spec="^1.2.1">
         <variable name="APP_ID" value="4929693" />
     </plugin>
+    <plugin name="onesignal-cordova-plugin" spec="^2.2.2" />
 </widget>

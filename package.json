@@ -51,7 +51,6 @@
     "cordova-android": "^6.2.3",
     "cordova-android-support-gradle-release": "^1.1.5",
     "cordova-browser": "^4.1.0",
-    "cordova-ios": "^4.4.0",
     "cordova-plugin-app-event": "^1.2.1",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-compat": "^1.2.0",
@@ -82,10 +81,12 @@
     "ionic-angular": "3.6.1",
     "ionic-plugin-keyboard": "^2.2.1",
     "ionicons": "^3.0.0",
+    "onesignal-cordova-plugin": "^2.2.2",
     "phonegap-plugin-local-notification": "^1.0.1",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.12"
+    "zone.js": "0.8.12",
+    "cordova-ios": "~4.5.4"
   },
   "devDependencies": {
     "@ionic/app-scripts": "2.1.4",
@@ -137,7 +138,8 @@
       },
       "cordova-plugin-linkedin": {
         "APP_ID": "4929693"
-      }
+      },
+      "onesignal-cordova-plugin": {}
     },
     "platforms": [
       "android",
