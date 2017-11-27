@@ -1,7 +1,7 @@
 export const CONFIG = {
     ROUTES:{
       //DOMAIN_API:'http://192.168.1.135/intro_app/api/public',
-      //FOLDER_IMAGES:'http://192.168.1.135/intro_app/api/public/images',
+      //FOLDER_IMAGES:'http://192.168.1.135/intro_app/api/public/images'
       DOMAIN_API:'http://www.intro.exchange/api/public/',
       FOLDER_IMAGES:'http://www.intro.exchange/api/public/images'
     },
@@ -21,7 +21,7 @@ export const CONFIG = {
     },
     ICONS:{},
     GENERAL:{
-      QUANTITY:5,
+      QUANTITY:6,
       CHAT_INTERVAL:10000,
       LANGUAGE:'en',
       FACEBOOK_ID:'1961950780725321',

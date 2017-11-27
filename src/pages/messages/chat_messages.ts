@@ -9,6 +9,7 @@ import { ConfigService } from '../../lib/config.service';
 import { TimeService } from '../../lib/time.service';
 import { PushNotificationService } from '../../lib/pushNotification.service';
 import { DetailIntrosPage } from '../intros/detail_intros';
+import { UtilService } from '../../lib/utils.service';
 
 @Component({
   selector: 'chat-messages',
@@ -39,12 +40,11 @@ export class ChatMessagesPage {
   roomForm: FormGroup;
   classInput: string = '';
   typeAdd: string = '';
-  execScroll: boolean = false;
   interval:Number=0;
   pushMaxLetters:string = '';
   pushContent:any = {title:'',content:''};
 
-  constructor(public app: App, private navCtrl: NavController, private httpService: HttpService, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public navParams: NavParams, public sanitizer: DomSanitizer, private platform: Platform, private formBuilder: FormBuilder, private timeService:TimeService, public pushNotificationService: PushNotificationService) {
+  constructor(public app: App, private navCtrl: NavController, private httpService: HttpService, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public navParams: NavParams, public sanitizer: DomSanitizer, private platform: Platform, private formBuilder: FormBuilder, private timeService:TimeService, public pushNotificationService: PushNotificationService, private utilService: UtilService) {
     this.infiniteScroll = this.scroll;
     if (this.navParams.get('introId') === undefined || this.navParams.get('introId') === null || this.navParams.get('introId') === '')
       this.navCtrl.pop();
@@ -75,9 +75,6 @@ export class ChatMessagesPage {
         this.pushContent.title = value;
       }
     );
-  }
-
-  ionViewWillEnter(): void {
     this.getMessages({ type: 'old', room: true, add:'reverse' });
   }
 
@@ -102,11 +99,6 @@ export class ChatMessagesPage {
       this.typeAdd = config.add;
     else
       this.typeAdd = 'normal';
-
-      if (config.scroll !== undefined && config.scroll !== null && config.scroll === false)
-        this.execScroll = false;
-      else
-        this.execScroll = true;
 
     if (config.room !== undefined && config.room !== null && config.room === true)
       params.push({ room: true });
@@ -149,7 +141,7 @@ export class ChatMessagesPage {
           if (this.listMessages.length === 0)
             this.noMessages = true;
           this.messages.closeMessage();
-          this.refreshScroll();
+          this.refreshScroll(false);
         }
       });
     }
@@ -273,15 +265,15 @@ export class ChatMessagesPage {
         message: messages[i]['message'],
         date: messages[i]['created_at'],
       }
-      //trabajamos la fecha, el dia mes y año aparece cuando nos pasamos  no es el dia actual
+      //trabajamos la fecha, el dia mes y año aparece cuando nos pasamos no es el dia actual
       let splitDate = messages[i]['created_at'].split(' ');
       let dateMessage = new Date(splitDate[0]);
       let date = new Date();
       let dateRaw = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
       if (new Date(dateRaw).getTime() !== dateMessage.getTime())
-        message.date = messages[i]['created_at'];
+        message.date =this.utilService.getFormatDate(messages[i]['created_at']);
       else
-        message.date = splitDate[1];
+        message.date =this.utilService.getHour(messages[i]['created_at']);
 
       if (this.myUser != messages[i]['id_user'])
         message['style'] = 'left';
@@ -297,7 +289,7 @@ export class ChatMessagesPage {
       }
     }
     this.execPullRequest();
-    this.refreshScroll();
+    this.refreshScroll(true);
     this.typeAdd = '';
   }
 
@@ -437,14 +429,14 @@ export class ChatMessagesPage {
       } else {
         if (this.listMessages.length === 0)
           this.noMessages = true;
-        this.refreshScroll();
+        this.refreshScroll(true);
       }
     }
   }
 
-  private refreshScroll(): void {
+  private refreshScroll(move:boolean): void {
     let exec;
-    if(this.execScroll){
+    if(move){
       if (this.typeAdd === 'normal' || this.typeAdd === '') {
         exec = () => {
           this.content.scrollToBottom(0);
@@ -462,7 +454,6 @@ export class ChatMessagesPage {
 
     //para buscar nuevos mensajes
     this.initInterval();
-    this.execScroll = true;
     if (this.infiniteScroll !== undefined)
       this.infiniteScroll.complete();
   }
@@ -470,7 +461,7 @@ export class ChatMessagesPage {
   private initInterval():void{
     this.timeService.delay({
       function:()=>{
-        this.getMessages({ type: 'new', room: false, message:this.lastMessage, scroll:false, automatic:true});
+        this.getMessages({ type: 'new', room: false, message:this.lastMessage, automatic:true});
       },
       duration:this.interval
     });
@@ -482,7 +473,6 @@ export class ChatMessagesPage {
   }
 
   public gotoDetail(): void {
-    console.log("dsafsdf");
     this.app.getRootNav().push(DetailIntrosPage, { introId: this.introId });
   }
 

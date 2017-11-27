@@ -16,6 +16,7 @@ import { DatePicker } from '@ionic-native/date-picker';
 import { Contacts } from '@ionic-native/contacts';
 import { OneSignal } from '@ionic-native/onesignal';
 import { IonicStorageModule  } from '@ionic/storage';
+import { ElasticModule } from 'angular2-elastic';
 
 import { ConfigService }   from '../lib/config.service';
 import { MessageService } from '../lib/messages.service';
@@ -92,6 +93,7 @@ import { FormContactUsPage } from '../pages/contact_us/form_contact_us';
   imports: [
     HttpModule,
     BrowserModule,
+    ElasticModule,
     IonicModule.forRoot(MyApp,{
       tabsPlacement: 'bottom',
       scrollAssist: true,

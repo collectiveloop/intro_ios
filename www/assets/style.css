@@ -589,10 +589,16 @@ ion-item-sliding ion-item-options .button ion-icon, ion-item-sliding ion-item-op
 
 .checkbox-item {
   border-bottom: 0px !important;
+  width: 100% !important;
+}
+
+.checkbox-item .item-inner{
+  padding:0px !important;
 }
 
 .checkbox-item .label {
   margin: 13px 0px 13px 0px;
+  white-space: normal;
 }
 
 .detail-intros .text-input[disabled], .detail-intros .checkbox-disabled, .detail-intros .item.item-checkbox-disabled ion-label {
@@ -763,8 +769,13 @@ ion-alert .delete .button-inner {
   vertical-align: middle;
   font-size: inherit;
   white-space: normal;
-  width: 100%;
+  width: auto;
 }
+
+.messages h2.mini {
+  width:72%;
+}
+
 
 .messages .list-format .label {
   margin: 0px;
@@ -780,7 +791,9 @@ ion-alert .delete .button-inner {
 }
 
 /*chat messages*/
-
+.conversation .toolbar{
+  contain:inherit;
+}
 .conversation .list-format .label {
   margin: 0px !important;
 }

@@ -9,6 +9,7 @@ import { DetailIntrosPage } from '../intros/detail_intros';
 import { MadeMessagesPage } from '../messages/made_messages';
 import { ChatMessagesPage } from '../messages/chat_messages';
 import { SessionService } from '../../lib/session.service';
+import { UtilService } from '../../lib/utils.service';
 
 @Component({
   selector: 'received-messages',
@@ -31,7 +32,7 @@ export class ReceivedMessagesPage {
   submitted:boolean;
   currentChoice:any;
 
-  constructor(public app: App, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public sanitizer: DomSanitizer, private httpService: HttpService, private navCtrl: NavController, public navParams: NavParams, private sessionService: SessionService, private alertCtrl: AlertController) {
+  constructor(public app: App, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public sanitizer: DomSanitizer, private httpService: HttpService, private navCtrl: NavController, public navParams: NavParams, private sessionService: SessionService, private alertCtrl: AlertController, private utilService: UtilService) {
     console.log(this.navParams.get('introId'));
     this.translateService.get('LOADING').subscribe(
       value => {
@@ -86,7 +87,7 @@ export class ReceivedMessagesPage {
       content: this.loadingMessage
     });
     this.httpService.get({
-      url: 'intros',
+      url: 'messages',
       urlParams: [
         this.translateService.getDefaultLang(),
         'received',
@@ -111,7 +112,7 @@ export class ReceivedMessagesPage {
 
   private getReceivedIntros(): void {
     this.httpService.get({
-      url: 'intros',
+      url: 'messages',
       urlParams: [
         this.translateService.getDefaultLang(),
         'received',
@@ -180,7 +181,7 @@ export class ReceivedMessagesPage {
       if (intros[i]['other_image_loaded'] === false)
         this.loadImage(intros[i], 'other');
 
-      intros[i]['created_at'] = intros[i]['created_at'].replace(' ', ' / ');
+      intros[i]['created_at'] = this.utilService.getDate(intros[i]['created_at']);
 
       this.listIntros.push(intros[i]);
     }
@@ -305,7 +306,7 @@ export class ReceivedMessagesPage {
   }
 
   public goMadeMessages(): void {
-    this.navCtrl.push(MadeMessagesPage);
+    this.navCtrl.pop();
   }
 
   private callBackError(response: any): void {

@@ -7,6 +7,7 @@ import { MessageService } from '../../lib/messages.service';
 import { ConfigService } from '../../lib/config.service';
 import { DetailIntrosPage } from '../intros/detail_intros';
 import { MadeMessagesPage } from '../messages/made_messages';
+import { UtilService } from '../../lib/utils.service';
 
 @Component({
   selector: 'received-intros',
@@ -22,7 +23,7 @@ export class ReceivedIntrosPage {
   route: string = '';
   ready:boolean = false;
 
-  constructor(public app: App, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public sanitizer: DomSanitizer, private httpService: HttpService, private navCtrl:NavController) {
+  constructor(public app: App, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public sanitizer: DomSanitizer, private httpService: HttpService, private navCtrl:NavController, private utilService: UtilService) {
     this.translateService.get('LOADING').subscribe(
       value => {
         this.loadingMessage = value;
@@ -143,7 +144,7 @@ export class ReceivedIntrosPage {
       if (intros[i]['other_image_loaded'] === false)
         this.loadImage(intros[i], 'other');
 
-      intros[i]['created_at']=intros[i]['created_at'].replace(' ',' / ');
+      intros[i]['created_at']=this.utilService.getDate(intros[i]['created_at']);
       intros[i]['style']='crop';
 
       this.listIntros.push(intros[i]);
