@@ -16,11 +16,17 @@ import { PushNotificationService } from '../lib/pushNotification.service';
 import { LoginPage } from '../pages/login/login';
 import { ResetPasswordPage } from '../pages/login/reset_password';
 import { ListContactsPendingPage } from '../pages/contacts/list_contacts_pending';
+import { ReceivedIntrosPage } from '../pages/intros/received_intros';
 import { ChangePasswordPage } from '../pages/login/change_password';
 import { ProfileUserPage } from '../pages/user/user_profile';
 import { FormContactUsPage } from '../pages/contact_us/form_contact_us';
 import { ChatMessagesPage } from '../pages/messages/chat_messages';
+import { MadeMessagesPage } from '../pages/messages/made_messages';
+import { ReceivedMessagesPage } from '../pages/messages/received_messages';
 import { TabsPage } from '../pages/tabs/tabs';
+import { Keyboard } from '@ionic-native/keyboard';
+import { Badge } from '@ionic-native/badge';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @Component({
   templateUrl: 'app.html',
@@ -32,12 +38,14 @@ export class MyApp {
   rootPage: any;
   selectedTheme: String;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private translateService: TranslateService, private globalization: Globalization, public configService: ConfigService, public sessionService: SessionService, private app: App, public menuCtrl: MenuController, private settings: SettingsProvider, public contacts: ContactService, private httpService: HttpService, public timeService: TimeService, public pushNotificationService: PushNotificationService, public navigationService:NavigationService) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private translateService: TranslateService, private globalization: Globalization, public configService: ConfigService, public sessionService: SessionService, private app: App, public menuCtrl: MenuController, private settings: SettingsProvider, public contacts: ContactService, private httpService: HttpService, public timeService: TimeService, public pushNotificationService: PushNotificationService, public navigationService:NavigationService, public keyboard:Keyboard, public badge:Badge,private localNotifications: LocalNotifications) {
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
     this.platform.ready().then(() => {
       this.httpService.setLogin(LoginPage);
       //Language
       if (this.platform.is('cordova')) {
+        this.clearNotifications();
+        this.keyboard.disableScroll(false);
         this.globalization.getPreferredLanguage().then(result => {
           let language = result.value.split('-')[0];//evitamos cosas como -US
           this.translateService.setDefaultLang(language);
@@ -70,7 +78,7 @@ export class MyApp {
   public termsConditions(): void {
     this.menuCtrl.close();
     this.navigationService.navigateExternal({
-        'url': this.configService.getDomainAPI()+'/terms-conditions/'+this.translateService.getDefaultLang(),
+        'url': this.configService.getTerms(),
         'target':'_blank'
     });
   }
@@ -78,7 +86,7 @@ export class MyApp {
   public politicsPrivacies(): void {
     this.menuCtrl.close();
     this.navigationService.navigateExternal({
-        'url': this.configService.getDomainAPI()+'/politics-privacy/'+this.translateService.getDefaultLang(),
+        'url': this.configService.getPolicy(),
         'target':'_blank'
     });
   }
@@ -104,9 +112,16 @@ export class MyApp {
     this.loadPage(false);
     // Branch initialization
     this.platform.resume.subscribe(() => {
+      this.clearNotifications();
       this.branchInit();
       this.loadPage(true);
     });
+  }
+
+  public clearNotifications():void{
+    this.badge.clear();
+    this.localNotifications.clearAll();
+    this.localNotifications.cancelAll();
   }
 
   // Branch initialization
@@ -127,7 +142,7 @@ export class MyApp {
       console.log(link);
       if (link !== '') {
         if (link.indexOf('intros') !== -1 || link.indexOf('intros-link') !== -1) {
-          this.sessionService.setDestinySession(TabsPage, {});
+          this.sessionService.setDestinySession(TabsPage, {section:ReceivedIntrosPage, index:0});
         } else {
           if (link.indexOf('invitation-contact') !== -1 || link.indexOf('invitations-link') !== -1) {
             this.sessionService.setDestinySession(TabsPage, { section: ListContactsPendingPage, index: 1 });//el index es para el tab
@@ -145,6 +160,10 @@ export class MyApp {
             }
           }
         }
+        //si view es indefinido, es una apertura de la app
+        let view = this.app.getRootNav().getActive();
+        if(view !==undefined && view.instance !== undefined)
+          this.sessionService.setIgnoreSession(true);
       }
     });
   }
@@ -153,9 +172,10 @@ export class MyApp {
     this.pushNotificationService.init({
       received: (data) => {
         // do something when notification is received
+        console.log('pushNotificationService received');
         console.log(data);
         let view = this.app.getRootNav().getActive();
-        if(view ===undefined || view.instance === undefined || !(view.instance instanceof ChatMessagesPage)){
+        if(view ===undefined || view.instance === undefined || (!(view.instance instanceof ChatMessagesPage) && !(view.instance instanceof MadeMessagesPage)  && !(view.instance instanceof ReceivedMessagesPage) ) ) {
           let params = [];
           this.timeService.cancelAll();
           if (data.payload.additionalData.tabsIndex !== undefined) {
@@ -167,16 +187,17 @@ export class MyApp {
             params['introId'] = data.payload.additionalData.introId;
 
           this.sessionService.setDestinySession(TabsPage, params);
-          this.sessionService.setIgnoreSession(false);
+          this.sessionService.setIgnoreSession(true);
         }
       },
 
       opened: (data) => {
         this.timeService.cancelAll();
         // do something when a notification is opened
-        console.log('open', data);
+        console.log('pushNotificationService opened');
+        console.log(data);
         let view = this.app.getRootNav().getActive();
-        if(view ===undefined || view.instance === undefined || !(view.instance instanceof ChatMessagesPage)){
+        if(view ===undefined || view.instance === undefined || (!(view.instance instanceof ChatMessagesPage) && !(view.instance instanceof MadeMessagesPage)  && !(view.instance instanceof ReceivedMessagesPage) ) ) {
           let params = [];
           if (data.notification.payload.additionalData.tabsIndex !== undefined) {
             params['index'] = data.notification.payload.additionalData.tabsIndex;
@@ -187,10 +208,10 @@ export class MyApp {
             params['introId'] = data.notification.payload.additionalData.introId;
 
           this.sessionService.setDestinySession(TabsPage, params);
-          this.sessionService.setIgnoreSession(false);
-          if (view !==undefined && view.instance !== undefined && view.instance instanceof TabsPage) {
-            this.app.getRootNav().getActive().select(params['index']);
-          }
+          this.sessionService.setIgnoreSession(true);
+
+          this.app.getRootNav().getActive().select(params['index']);
+
         }
       },
       'focusDisplaying': 'Notification'
@@ -198,27 +219,25 @@ export class MyApp {
   }
 
   public loadPage(isResume: boolean): void {
-    this.sessionService.getSessionStatus().then(function(result) {
+    this.sessionService.getInitSessionStatus().then(function(result) {
       let destiny = this.sessionService.getDestinySession();
       if (result !== false) {
-        console.log(destiny);
         if (destiny.target !== undefined && destiny.target !== ResetPasswordPage)
           this.rootPage = destiny.target;
         else
           this.rootPage = TabsPage;
       } else {
-        console.log(destiny);
         //RESET PASSWORD O SECCIONES DONDE NO HAY SESION
         if (result === false && destiny.target !== undefined && destiny.target !== null && destiny.target === ResetPasswordPage) {
-          this.rootPage = destiny.target;
+          this.rootPage = ResetPasswordPage;
         } else {
           this.rootPage = LoginPage;
         }
       }
 
-      console.log("este es la rootpage", isResume, this.rootPage);
-      if (isResume && this.sessionService.getIgnoreSession() === false) {
-        this.sessionService.setIgnoreSession(true);
+      if ((!isResume && this.sessionService.getIgnoreSession() === true) || (isResume && this.sessionService.getIgnoreSession() === true)  ) {
+        console.log(isResume,this.sessionService.getIgnoreSession());
+        this.sessionService.setIgnoreSession(false);
         this.nav.setRoot(this.rootPage);
       }
     }.bind(this));

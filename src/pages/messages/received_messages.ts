@@ -33,7 +33,7 @@ export class ReceivedMessagesPage {
   currentChoice:any;
 
   constructor(public app: App, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public sanitizer: DomSanitizer, private httpService: HttpService, private navCtrl: NavController, public navParams: NavParams, private sessionService: SessionService, private alertCtrl: AlertController, private utilService: UtilService) {
-    console.log(this.navParams.get('introId'));
+    this.sessionService.cleanDestinySession();
     this.translateService.get('LOADING').subscribe(
       value => {
         this.loadingMessage = value;
@@ -68,13 +68,7 @@ export class ReceivedMessagesPage {
 
   ionViewWillEnter(): void {
     this.submitted = false;
-    let destiny = this.sessionService.getDestinySession();
     this.sessionService.cleanDestinySession();
-    if (destiny.params !== undefined && destiny.params.index !== undefined && destiny.params.index !== null && destiny.params.introId !== undefined && destiny.params.introId !== null) {
-      console.log("redireccionando");
-      this.app.getRootNav().push(ChatMessagesPage, { introId: destiny.params.introId });
-    }
-
     this.section = 'received';
     this.ready = false;
     this.page = 1;

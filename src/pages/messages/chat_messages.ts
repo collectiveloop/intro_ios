@@ -40,11 +40,11 @@ export class ChatMessagesPage {
   roomForm: FormGroup;
   classInput: string = '';
   typeAdd: string = '';
-  interval:Number=0;
-  pushMaxLetters:string = '';
-  pushContent:any = {title:'',content:''};
+  interval: Number = 0;
+  pushMaxLetters: string = '';
+  pushContent: any = { title: '', content: '' };
 
-  constructor(public app: App, private navCtrl: NavController, private httpService: HttpService, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public navParams: NavParams, public sanitizer: DomSanitizer, private platform: Platform, private formBuilder: FormBuilder, private timeService:TimeService, public pushNotificationService: PushNotificationService, private utilService: UtilService) {
+  constructor(public app: App, private navCtrl: NavController, private httpService: HttpService, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public navParams: NavParams, public sanitizer: DomSanitizer, private platform: Platform, private formBuilder: FormBuilder, private timeService: TimeService, public pushNotificationService: PushNotificationService, private utilService: UtilService) {
     this.infiniteScroll = this.scroll;
     if (this.navParams.get('introId') === undefined || this.navParams.get('introId') === null || this.navParams.get('introId') === '')
       this.navCtrl.pop();
@@ -75,13 +75,13 @@ export class ChatMessagesPage {
         this.pushContent.title = value;
       }
     );
-    this.getMessages({ type: 'old', room: true, add:'reverse' });
+    this.getMessages({ type: 'old', room: true, add: 'reverse' });
   }
 
   private getMessages(config: any): void {
     this.timeService.cancelDelay();
     if (config.automatic != undefined && config.automatic != null && config.automatic === true)
-    this.requestSent = false;
+      this.requestSent = false;
     else
       this.requestSent = true;
     let params = [
@@ -271,15 +271,15 @@ export class ChatMessagesPage {
       let date = new Date();
       let dateRaw = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
       if (new Date(dateRaw).getTime() !== dateMessage.getTime())
-        message.date =this.utilService.getFormatDate(messages[i]['created_at']);
+        message.date = this.utilService.getFormatDate(messages[i]['created_at']);
       else
-        message.date =this.utilService.getHour(messages[i]['created_at']);
+        message.date = this.utilService.getHour(messages[i]['created_at']);
 
       if (this.myUser != messages[i]['id_user'])
         message['style'] = 'left';
       else
         message['style'] = 'right';
-      if(this.members[messages[i]['id_user']]!==undefined)
+      if (this.members[messages[i]['id_user']] !== undefined)
         message['style2'] = this.members[messages[i]['id_user']]['style'];
       if (this.typeAdd === 'normal') {
         this.listMessages[index] = message;
@@ -331,7 +331,7 @@ export class ChatMessagesPage {
 
   private buildValidations() {
     this.roomForm = this.formBuilder.group({
-      message: ['', Validators.compose([Validators.minLength(2), Validators.required])]
+      message: ['', Validators.compose([Validators.minLength(1), Validators.required])]
     });
   }
 
@@ -380,41 +380,61 @@ export class ChatMessagesPage {
       //para buscar nuevos mensajes
       this.initInterval();
     } else {
-      //enviamos la notificación
-
-        let ids=[];
-        for (let key in this.members) {
-          console.log(this.myUser.toString(), key);
-          if(this.members[key]['push_id'].trim()!='' && this.myUser.toString() != key.toString()){
-            console.log(this.myUser.toString(), key);
-            console.log(this.members[this.myUser]['push_id'],this.members[key]['push_id']);
-            ids.push(this.members[key]['push_id'].trim());
-          }
-        }
-
-        let text ='';
-        if(this.roomForm.value.message.trim().length>this.pushMaxLetters)
-          text = this.members[this.myUser]['first_name']+' '+this.members[this.myUser]['last_name']+': '+this.roomForm.value.message.trim().substring(0,this.pushMaxLetters)+'...';
+      //actualziamos a losmiembros con su respectivo push id o quitandoselo de acuerdo al caso
+      let users = response.data.room;
+      if(users!==undefined && users['id_user_1']!==undefined && users['id_user_1']!=='' && users['user_1_push_id']!==undefined){
+        if(this.members[users['id_user_1']]!==undefined && this.members[users['id_user_1']]!==null && users['user_1_push_id']!=='')
+          this.members[users['id_user_1']]['push_id'] = users['user_1_push_id'];
         else
-          text = this.members[this.myUser]['first_name']+' '+this.members[this.myUser]['last_name']+': '+this.roomForm.value.message.trim();
-        let params:any = {
-          include_player_ids: ids,
-          contents:{
-            es:text,
-            en:text
-          },
-          headings: {
-            es: this.pushContent.title+' '+this.members[this.myUser]['first_name']+' '+this.members[this.myUser]['last_name'],
-            en: this.pushContent.title+' '+this.members[this.myUser]['first_name']+' '+this.members[this.myUser]['last_name']
-          },
-          data: {
-            'tabsIndex': 3,
-            'introId': this.introId
-          }
-        };
-        console.log(params);
-        this.pushNotificationService.sendNotification(params);
+          this.members[users['id_user_1']]['push_id'] = '';
+      }
 
+      if(users!==undefined && users['id_user_2']!==undefined && users['id_user_2']!=='' && users['user_2_push_id']!==undefined){
+        if(this.members[users['id_user_2']]!==undefined && this.members[users['id_user_2']]!==null && users['user_2_push_id']!=='')
+          this.members[users['id_user_2']]['push_id'] = users['user_2_push_id'];
+        else
+          this.members[users['id_user_2']]['push_id'] = '';
+      }
+
+      if(users!==undefined && users['id_user_3']!==undefined && users['id_user_3']!=='' && users['user_3_push_id']!==undefined){
+        if(this.members[users['id_user_3']]!==undefined && this.members[users['id_user_3']]!==null  && users['user_3_push_id']!=='')
+          this.members[users['id_user_3']]['push_id'] = users['user_3_push_id'];
+        else
+          this.members[users['id_user_3']]['push_id'] = '';
+      }
+      //enviamos la notificación
+      let ids = [];
+      for (let key in this.members) {
+        console.log(this.myUser.toString(), key);
+        if (this.members[key]!==undefined && this.members[key]['push_id']!==undefined && this.members[key]['push_id'].trim() != '' && this.myUser.toString() != key.toString()) {
+          console.log(this.myUser.toString(), key);
+          console.log(this.members[this.myUser]['push_id'], this.members[key]['push_id']);
+          ids.push(this.members[key]['push_id'].trim());
+        }
+      }
+
+      let text = '';
+      if (this.roomForm.value.message.trim().length > this.pushMaxLetters)
+        text = this.members[this.myUser]['first_name'] + ' ' + this.members[this.myUser]['last_name'] + ': ' + this.roomForm.value.message.trim().substring(0, this.pushMaxLetters) + '...';
+      else
+        text = this.members[this.myUser]['first_name'] + ' ' + this.members[this.myUser]['last_name'] + ': ' + this.roomForm.value.message.trim();
+      let params: any = {
+        include_player_ids: ids,
+        contents: {
+          es: text,
+          en: text
+        },
+        headings: {
+          es: this.pushContent.title + ' ' + this.members[this.myUser]['first_name'] + ' ' + this.members[this.myUser]['last_name'],
+          en: this.pushContent.title + ' ' + this.members[this.myUser]['first_name'] + ' ' + this.members[this.myUser]['last_name']
+        },
+        data: {
+          'tabsIndex': 3,
+          'introId': this.introId
+        }
+      };
+      console.log(params);
+      this.pushNotificationService.sendNotification(params);
 
       this.roomForm.controls['message'].patchValue('');
       this.roomForm.controls['message'].setValue('');
@@ -434,9 +454,9 @@ export class ChatMessagesPage {
     }
   }
 
-  private refreshScroll(move:boolean): void {
+  private refreshScroll(move: boolean): void {
     let exec;
-    if(move){
+    if (move) {
       if (this.typeAdd === 'normal' || this.typeAdd === '') {
         exec = () => {
           this.content.scrollToBottom(0);
@@ -447,8 +467,8 @@ export class ChatMessagesPage {
         };
       }
       this.timeService.delay({
-        function:exec,
-        duration:0
+        function: exec,
+        duration: 0
       });
     }
 
@@ -458,12 +478,12 @@ export class ChatMessagesPage {
       this.infiniteScroll.complete();
   }
 
-  private initInterval():void{
+  private initInterval(): void {
     this.timeService.delay({
-      function:()=>{
-        this.getMessages({ type: 'new', room: false, message:this.lastMessage, automatic:true});
+      function: () => {
+        this.getMessages({ type: 'new', room: false, message: this.lastMessage, automatic: true });
       },
-      duration:this.interval
+      duration: this.interval
     });
   }
 
@@ -477,8 +497,8 @@ export class ChatMessagesPage {
   }
 
   public backAction(): void {
-      this.pullRequest =[];
-      this.timeService.cancelDelay();
-      this.navCtrl.pop();
+    this.pullRequest = [];
+    this.timeService.cancelDelay();
+    this.navCtrl.pop();
   }
 }

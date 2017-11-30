@@ -144,9 +144,9 @@ export class SessionService {
             console.log(response.data.message);
             resolve(false);
           } else {
-            let token = response.data.token.split(':')[1];
+            let token = response.data.token;
+            this.httpService.setToken(token);
             this.changeTokenSession(token);
-            this.httpService.setTokenProvider(token);
             resolve(true);
           }
         },

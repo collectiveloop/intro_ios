@@ -17,6 +17,8 @@ import { Contacts } from '@ionic-native/contacts';
 import { OneSignal } from '@ionic-native/onesignal';
 import { IonicStorageModule  } from '@ionic/storage';
 import { ElasticModule } from 'angular2-elastic';
+import { Keyboard } from '@ionic-native/keyboard';
+import { Badge } from '@ionic-native/badge';
 
 import { ConfigService }   from '../lib/config.service';
 import { MessageService } from '../lib/messages.service';
@@ -96,7 +98,7 @@ import { FormContactUsPage } from '../pages/contact_us/form_contact_us';
     ElasticModule,
     IonicModule.forRoot(MyApp,{
       tabsPlacement: 'bottom',
-      scrollAssist: true,
+      scrollAssist: false,
       autoFocusAssist: false,
       scrollPadding: false,
       platforms:{
@@ -164,6 +166,8 @@ import { FormContactUsPage } from '../pages/contact_us/form_contact_us';
     DatePicker,
     Contacts,
     OneSignal,
+    Keyboard,
+    Badge,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

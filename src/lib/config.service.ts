@@ -21,18 +21,40 @@ export class ConfigService {
     return CONFIG.GENERAL;
   }
 
+  public getDomain(): any {
+    if (CONFIG.ROUTES.DOMAIN === undefined || typeof CONFIG.ROUTES.DOMAIN != 'string')
+      return '';
+
+    return CONFIG.ROUTES.DOMAIN;
+  }
+
   public getDomainAPI(): any {
     if (CONFIG.ROUTES.DOMAIN_API === undefined || typeof CONFIG.ROUTES.DOMAIN_API != 'string')
       return '';
 
-    return CONFIG.ROUTES.DOMAIN_API;
+    return this.getDomain()+CONFIG.ROUTES.DOMAIN_API;
   }
 
   public getDomainImages(): any {
     if (CONFIG.ROUTES.FOLDER_IMAGES === undefined || typeof CONFIG.ROUTES.FOLDER_IMAGES != 'string')
       return '';
 
-    return CONFIG.ROUTES.FOLDER_IMAGES;
+    return this.getDomain()+CONFIG.ROUTES.FOLDER_IMAGES;
+  }
+
+  public getPolicy(): any {
+    if (CONFIG.ROUTES.POLICY === undefined || typeof CONFIG.ROUTES.POLICY != 'string')
+      return '';
+
+    return this.getDomain()+CONFIG.ROUTES.POLICY;
+  }
+
+  public getTerms(): any {
+    console.log(CONFIG.ROUTES.TERMS);
+    if (CONFIG.ROUTES.TERMS === undefined || typeof CONFIG.ROUTES.TERMS != 'string')
+      return '';
+
+    return this.getDomain()+CONFIG.ROUTES.TERMS;
   }
 
   public getLanguage(): string {

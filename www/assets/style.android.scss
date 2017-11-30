@@ -415,11 +415,10 @@
   }
 
   .message-form .message:after {
-    display: none;
     border-width: 0 0 10px 10px;
     border-color: transparent transparent transparent #FFFFFF;
     top: 0;
-    right: 71px;
+    margin-left: 6px;
     margin-top: 8px;
   }
 

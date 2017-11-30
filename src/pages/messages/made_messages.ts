@@ -8,6 +8,7 @@ import { ConfigService } from '../../lib/config.service';
 import { DetailIntrosPage } from '../intros/detail_intros';
 import { ReceivedMessagesPage } from '../messages/received_messages';
 import { ChatMessagesPage } from '../messages/chat_messages';
+import { SessionService } from '../../lib/session.service';
 import { UtilService } from '../../lib/utils.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class MadeMessagesPage {
   submitted:boolean;
   currentChoice:any;
 
-  constructor(public app: App, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public sanitizer: DomSanitizer, private httpService: HttpService, private navCtrl:NavController, private alertCtrl: AlertController, private utilService: UtilService) {
+  constructor(public app: App, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, public sanitizer: DomSanitizer, private httpService: HttpService, private navCtrl:NavController, private alertCtrl: AlertController, private utilService: UtilService, private sessionService: SessionService) {
     this.translateService.get('LOADING').subscribe(
       value => {
         this.loadingMessage = value;
@@ -66,6 +67,7 @@ export class MadeMessagesPage {
   }
 
   ionViewWillEnter(): void {
+    this.sessionService.cleanDestinySession();
     this.submitted = false;
     this.section = 'made';
     this.ready = false;
