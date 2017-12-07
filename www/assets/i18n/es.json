@@ -28,7 +28,7 @@
   "PROFILE_PHOTO": "Imagen de perfil",
   "COMPANY_NAME": "Compañía",
   "INVALID_COMPANY_NAME": "El campo Compañía es requerido",
-  "INDICATIONS": "Indique su correo electrónico o usuario, le enviaremos a su correo los pasos a seguir para cambiar su contraseña",
+  "INDICATIONS": "Indique su usuario o correo electrónico y nosotros le enviaremos un enlace para volver a su cuenta",
   "INDICATIONS_CHANGE_PASSWORD": "Por favor indique su contraseña actual, la nueva contraseña y la confirmación de la nueva contraseña",
   "OR": "O",
   "USER": "Datos del usuario",
@@ -85,7 +85,7 @@
   "MADE_INTRODUCTIONS":"Introducciones realizadas",
   "INTRODUCTIONS_RECEIVED":"Introducciones recibidas",
   "INTROS_MADE":"Intros realizadas",
-  "LOAD_INTROS":"Pulsa sobre la imagen para seleecionar un contacto",
+  "LOAD_INTROS":"Pulsa sobre la imagen para seleccionar un contacto",
   "INTROS_RECEIVED":"Intros recibidas",
   "NOT_INTROS_MADE":"No hay intros realizadas",
   "NOT_INTROS_RECEIVED":"No hay Intros recibidas",
@@ -142,5 +142,6 @@
   "YOU_INTRODUCED": "Tú presentaste a",
   "AND": "y",
   "INTRODUCED_YOU": "te presentó",
-  "TO": "a"
+  "TO": "a",
+  "NOT_ACCESS":"Acceso no concedido"
 }

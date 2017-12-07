@@ -27,7 +27,8 @@ export const CONFIG = {
       CHAT_INTERVAL:10000,
       LANGUAGE:'en',
       FACEBOOK_ID:'1961950780725321',
-      GOOGLE_APIKEY:'AIzaSyBz_QsRxbAr9SOf0djzPQSaK7HAfHs9o0I',
+      GOOGLE_APIKEY:'AIzaSyCuEJyHaIV2KsntTsL_cJ2bJNxucZoY6xU',
+      GOOGLE_WEB_CLIENT_ID:'com.googleusercontent.apps.beqb80o5867005il5jgpp64h1cigp1cv-243179874931',
       CURRENT_PLAY_LIST: 'PLpOqH6AE0tNiPHU2BCm_ei3C2BmjN9IGt',
       CHANNEL: 'UCsfWVdGe5Gggv9U2YqXo5Dw',
       MAX_LETTERS:{

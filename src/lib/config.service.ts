@@ -78,6 +78,13 @@ export class ConfigService {
     return CONFIG.GENERAL.GOOGLE_APIKEY;
   }
 
+  public getGoogleWebClientId(): string {
+    if (CONFIG.GENERAL.GOOGLE_WEB_CLIENT_ID === undefined || typeof CONFIG.GENERAL.GOOGLE_WEB_CLIENT_ID !== 'string')
+      return '';
+
+    return CONFIG.GENERAL.GOOGLE_WEB_CLIENT_ID;
+  }
+
   public getOneSignal(): any {
     if (CONFIG.ONE_SIGNAL === undefined)
       return '';

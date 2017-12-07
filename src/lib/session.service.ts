@@ -80,7 +80,6 @@ export class SessionService {
                             console.log("googleplus");
                             console.log(data);
                             if (data !== null && data !== undefined && data !== false) {
-                              //una sesión usando facebook, vemos si hubo sesión
                               this.googlePlus.trySilentLogin({ 'scopes': 'profile email' })
                                 .then(result => {
                                   resolve('google_plus'); // hay sesion en la app y en google_plus
@@ -118,19 +117,30 @@ export class SessionService {
 
   public getInitSessionStatus(): any {
     return new Promise((resolve, reject) => {
-      this.getTokenSession().then((response)=>{
-        if(response==false){
-          this.storage.remove('token');
-          this.storage.remove('mode_facebook');
-          this.storage.remove('mode_linkedin');
-          this.storage.remove('mode_google_plus');
-          resolve(false);
-        }else{
-          this.getSessionStatus().then((response)=>{
-            resolve(response);
-          });
-        }
-      });
+      this.storage.get('token').then(
+        function(data: any) {
+          if (data !== null && data !== undefined && data !== '') {
+            this.getTokenSession().then((response)=>{
+              if(response==false){
+                this.storage.remove('token');
+                this.storage.remove('mode_facebook');
+                this.storage.remove('mode_linkedin');
+                this.storage.remove('mode_google_plus');
+                resolve(false);
+              }else{
+                this.getSessionStatus().then((response)=>{
+                  resolve(response);
+                });
+              }
+            });
+          }else{
+            this.storage.remove('token');
+            this.storage.remove('mode_facebook');
+            this.storage.remove('mode_linkedin');
+            this.storage.remove('mode_google_plus');
+            resolve(false);
+          }
+        }.bind(this));
     });
   }
   public getTokenSession():any{
@@ -182,7 +192,7 @@ export class SessionService {
 
   public loginByFacebook(): any {
     return new Promise((resolve, reject) => {
-      this.facebook.login(['public_profile', 'email'])
+      this.facebook.login(['public_profile', 'email','user_friends'])
         .then(rta => {
           console.log(rta);
           if (rta.status == 'connected') {

@@ -472,8 +472,13 @@
     margin-right: 0px;
     vertical-align: middle;
     background-color: #FFFFFF;
+    font-size: 10px !important;
   }
 
+
+  .message-form .send ion-icon{
+    font-size: 18px !important;
+  }
   .message-form .input-container .text-input {
     background-color: #FFFFFF;
     padding: 8px;
@@ -483,6 +488,8 @@
     margin: 0;
     border-radius: 5px;
   }
+
+
   /*fin de chat messages*/
   /*Fin de contacts*/
   @media (max-height: 667px) {

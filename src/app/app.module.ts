@@ -43,6 +43,7 @@ import { RegisterUserPage } from '../pages/user/user_register';
 import { ProfileUserPage } from '../pages/user/user_profile';
 
 import { ListContactsPage } from '../pages/contacts/list_contacts';
+import { GooglePlusContactsPage } from '../pages/contacts/googleplus_contacts';
 import { PickContactsPage } from '../pages/contacts/pick_contacts';
 import { ProfileContactsPage } from '../pages/contacts/profile_contact';
 import { AddContactsPage } from '../pages/contacts/add_contacts';
@@ -74,6 +75,7 @@ import { FormContactUsPage } from '../pages/contact_us/form_contact_us';
     ProfileUserPage,
     ListContactsPendingPage,
     ListContactsPage,
+    GooglePlusContactsPage,
     PickContactsPage,
     ProfileContactsPage,
     AddContactsPage,
@@ -127,6 +129,7 @@ import { FormContactUsPage } from '../pages/contact_us/form_contact_us';
     ProfileUserPage,
     ListContactsPendingPage,
     ListContactsPage,
+    GooglePlusContactsPage,
     PickContactsPage,
     ProfileContactsPage,
     AddContactsPage,

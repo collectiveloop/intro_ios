@@ -108,13 +108,12 @@ export class MyApp {
       this.statusBar.styleBlackOpaque();
     }
     this.splashScreen.hide();
-    this.branchInit();
-    this.loadPage(false);
+    this.branchInit(false);
     // Branch initialization
     this.platform.resume.subscribe(() => {
+      console.log('resume');
       this.clearNotifications();
-      this.branchInit();
-      this.loadPage(true);
+      this.branchInit(true);
     });
   }
 
@@ -125,47 +124,53 @@ export class MyApp {
   }
 
   // Branch initialization
-  public branchInit(): void {
+  public branchInit(load:boolean): void {
+    console.log('branchInit',load);
     // only on devices
-    if (!this.platform.is('cordova')) {
-      return;
-    }
-    const Branch = window['Branch'];
-    Branch.initSession(data => {
-      let link: string = '';
-      if (data['+clicked_branch_link'] !== undefined && data['+clicked_branch_link'] !== null && data['+clicked_branch_link'] !== false) {
-        link = data['+clicked_branch_link'];
-      } else {
-        if (data['+non_branch_link'] !== undefined && data['+non_branch_link'] !== null && data['+non_branch_link'] !== false)
-          link = data['+non_branch_link'];
-      }
-      console.log(link);
-      if (link !== '') {
-        if (link.indexOf('intros') !== -1 || link.indexOf('intros-link') !== -1) {
-          this.sessionService.setDestinySession(TabsPage, {section:ReceivedIntrosPage, index:0});
+    if (this.platform.is('cordova')) {
+      console.log('platorm');
+      const Branch = window['Branch'];
+      Branch.initSession(data => {
+        let link: string = '';
+        if (data['+clicked_branch_link'] !== undefined && data['+clicked_branch_link'] !== null && data['+clicked_branch_link'] !== false) {
+          link = data['+clicked_branch_link'];
         } else {
-          if (link.indexOf('invitation-contact') !== -1 || link.indexOf('invitations-link') !== -1) {
-            this.sessionService.setDestinySession(TabsPage, { section: ListContactsPendingPage, index: 1 });//el index es para el tab
+          if (data['+non_branch_link'] !== undefined && data['+non_branch_link'] !== null && data['+non_branch_link'] !== false)
+          link = data['+non_branch_link'];
+        }
+        console.log(link);
+        if (link !== '') {
+          if (link.indexOf('intros') !== -1 || link.indexOf('intros-link') !== -1) {
+            this.sessionService.setDestinySession(TabsPage, {section:ReceivedIntrosPage, index:0});
           } else {
-            let verify = '/remember-link/';
-            let token: number;
-            token = link.indexOf(verify);
-            if (token === -1) {
-              verify = '/forgot-password/';
+            if (link.indexOf('invitation-contact') !== -1 || link.indexOf('invitations-link') !== -1) {
+              this.sessionService.setDestinySession(TabsPage, { section: ListContactsPendingPage, index: 1 });//el index es para el tab
+            } else {
+              let verify = '/remember-link/';
+              let token: number;
               token = link.indexOf(verify);
-            }
+              if (token === -1) {
+                verify = '/forgot-password/';
+                token = link.indexOf(verify);
+              }
 
-            if (token !== -1) {
-              this.sessionService.setDestinySession(ResetPasswordPage, { token: link.substring(token + verify.length, link.length) });
+              if (token !== -1) {
+                this.sessionService.setDestinySession(ResetPasswordPage, { token: link.substring(token + verify.length, link.length) });
+                console.log('token ',link.substring(token + verify.length, link.length));
+              }
             }
           }
+          //si view es indefinido, es una apertura de la app
+          let view = this.app.getRootNav().getActive();
+          if(view !==undefined && view.instance !== undefined)
+            this.sessionService.setIgnoreSession(true);
+          this.loadPage(load);
         }
-        //si view es indefinido, es una apertura de la app
-        let view = this.app.getRootNav().getActive();
-        if(view !==undefined && view.instance !== undefined)
-          this.sessionService.setIgnoreSession(true);
-      }
-    });
+      });
+      this.loadPage(load);
+    }else{
+      this.loadPage(load);
+    }
   }
 
   public pushNotifications(): void {
@@ -219,28 +224,42 @@ export class MyApp {
   }
 
   public loadPage(isResume: boolean): void {
-    this.sessionService.getInitSessionStatus().then(function(result) {
-      let destiny = this.sessionService.getDestinySession();
-      if (result !== false) {
-        if (destiny.target !== undefined && destiny.target !== ResetPasswordPage)
-          this.rootPage = destiny.target;
-        else
-          this.rootPage = TabsPage;
+    console.log('loadPage',isResume);
+    if(!isResume){
+      this.sessionService.getInitSessionStatus().then(function(result) {
+        this.callBackLoadPage(result,isResume);
+      }.bind(this));
+    }else{
+      this.sessionService.getSessionStatus().then(function(result) {
+        this.callBackLoadPage(result,isResume);
+      }.bind(this));
+    }
+
+  }
+
+  public callBackLoadPage(result:any,isResume:boolean):void{
+    console.log('result',result);
+    let destiny = this.sessionService.getDestinySession();
+    if (result !== false) {
+      if (destiny.target !== undefined && destiny.target !== ResetPasswordPage)
+        destiny = destiny.target;
+      else
+        destiny = TabsPage;
+    } else {
+      //RESET PASSWORD O SECCIONES DONDE NO HAY SESION
+      if (result === false && destiny.target !== undefined && destiny.target !== null && destiny.target === ResetPasswordPage) {
+        destiny = ResetPasswordPage;
       } else {
-        //RESET PASSWORD O SECCIONES DONDE NO HAY SESION
-        if (result === false && destiny.target !== undefined && destiny.target !== null && destiny.target === ResetPasswordPage) {
-          this.rootPage = ResetPasswordPage;
-        } else {
-          this.rootPage = LoginPage;
-        }
+        destiny = LoginPage;
       }
+    }
 
-      if ((!isResume && this.sessionService.getIgnoreSession() === true) || (isResume && this.sessionService.getIgnoreSession() === true)  ) {
-        console.log(isResume,this.sessionService.getIgnoreSession());
-        this.sessionService.setIgnoreSession(false);
-        this.nav.setRoot(this.rootPage);
-      }
-    }.bind(this));
-
+    if ((!isResume && this.sessionService.getIgnoreSession() === true) || (isResume && this.sessionService.getIgnoreSession() === true)  ) {
+      console.log(isResume,this.sessionService.getIgnoreSession());
+      this.sessionService.setIgnoreSession(false);
+      this.nav.setRoot(destiny);
+    }else{
+      this.rootPage = destiny;
+    }
   }
 }
