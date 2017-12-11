@@ -406,7 +406,7 @@ export class ChatMessagesPage {
       let ids = [];
       for (let key in this.members) {
         console.log(this.myUser.toString(), key);
-        if (this.members[key]!==undefined && this.members[key]['push_id']!==undefined && this.members[key]['push_id'].trim() != '' && this.myUser.toString() != key.toString()) {
+        if (this.members[key]!==undefined && this.members[key]!==null && this.members[key]['push_id']!==undefined && this.members[key]['push_id']!==null && this.members[key]['push_id'].trim() != '' && this.myUser.toString() != key.toString()) {
           console.log(this.myUser.toString(), key);
           console.log(this.members[this.myUser]['push_id'], this.members[key]['push_id']);
           ids.push(this.members[key]['push_id'].trim());
@@ -485,11 +485,6 @@ export class ChatMessagesPage {
       },
       duration: this.interval
     });
-  }
-
-  private disableScroll(): void {
-    if (this.infiniteScroll !== undefined)
-      this.infiniteScroll.enable(false);
   }
 
   public gotoDetail(): void {

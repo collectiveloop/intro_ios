@@ -6,15 +6,13 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LinkedIn } from '@ionic-native/linkedin';
 import { HttpService } from './http.service';
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class SessionService {
   ignoreSession: boolean = false;
   destiny: any = {};
-  constructor(private storage: Storage, private facebook: Facebook, public googlePlus: GooglePlus, public linkedin: LinkedIn, public messages: MessageService, private httpService: HttpService, public app: App) { }
-  //this.storage.set('name', 'Maddddx');
-  //this.storage.remove('name');
-  //this.storage.get('name');
+  constructor(private storage: Storage, private facebook: Facebook, public googlePlus: GooglePlus, public linkedin: LinkedIn, public messages: MessageService, private httpService: HttpService, public app: App, private configService: ConfigService) { }
   //verificamos si hay token para que no entremosen esta pantalla
   public getSessionStatus(): any {
     return new Promise((resolve, reject) => {
@@ -236,7 +234,8 @@ export class SessionService {
     return new Promise((resolve, reject) => {
       this.googlePlus.logout()
         .then(success => {
-          this.googlePlus.login({ 'scopes': 'profile email' })
+
+          this.googlePlus.login({ 'scopes': 'profile email','webClientId':'' })
             .then(result => {
               this.initSession({
                 'token': '',
@@ -329,14 +328,24 @@ export class SessionService {
 
   public googlePlusLogOut(): void {
     this.googlePlus.logout()
-      .then(success => {
-        console.log('googlePlus ', success);
-      }, function(error) {
-        console.error(error);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .then(success => {
+      console.log('googlePlus ', success);
+    }, function(error) {
+      console.error(error);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+    this.googlePlus.disconnect()
+    .then(success => {
+      console.log('googlePlus ', success);
+    }, function(error) {
+      console.error(error);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }
 
 }

@@ -23,6 +23,7 @@ import { FormContactUsPage } from '../pages/contact_us/form_contact_us';
 import { ChatMessagesPage } from '../pages/messages/chat_messages';
 import { MadeMessagesPage } from '../pages/messages/made_messages';
 import { ReceivedMessagesPage } from '../pages/messages/received_messages';
+import { TabService } from '../pages/tabs/tabs.service';
 import { TabsPage } from '../pages/tabs/tabs';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Badge } from '@ionic-native/badge';
@@ -38,7 +39,7 @@ export class MyApp {
   rootPage: any;
   selectedTheme: String;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private translateService: TranslateService, private globalization: Globalization, public configService: ConfigService, public sessionService: SessionService, private app: App, public menuCtrl: MenuController, private settings: SettingsProvider, public contacts: ContactService, private httpService: HttpService, public timeService: TimeService, public pushNotificationService: PushNotificationService, public navigationService:NavigationService, public keyboard:Keyboard, public badge:Badge,private localNotifications: LocalNotifications) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private translateService: TranslateService, private globalization: Globalization, public configService: ConfigService, public sessionService: SessionService, private app: App, public menuCtrl: MenuController, private settings: SettingsProvider, public contacts: ContactService, private httpService: HttpService, public timeService: TimeService, public pushNotificationService: PushNotificationService, public navigationService:NavigationService, public keyboard:Keyboard, public badge:Badge,private localNotifications: LocalNotifications, public tabService:TabService) {
     this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
     this.platform.ready().then(() => {
       this.httpService.setLogin(LoginPage);
@@ -113,7 +114,10 @@ export class MyApp {
     this.platform.resume.subscribe(() => {
       console.log('resume');
       this.clearNotifications();
-      this.branchInit(true);
+      if(!this.tabService.getNotRefresh())
+        this.branchInit(true);
+      else
+        this.tabService.setNotRefresh(false);
     });
   }
 

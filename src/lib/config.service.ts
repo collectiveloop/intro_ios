@@ -85,6 +85,13 @@ export class ConfigService {
     return CONFIG.GENERAL.GOOGLE_WEB_CLIENT_ID;
   }
 
+  public getGoogleWebClientSecret(): string {
+    if (CONFIG.GENERAL.SECRET_CLIENT === undefined || typeof CONFIG.GENERAL.SECRET_CLIENT !== 'string')
+      return '';
+
+    return CONFIG.GENERAL.SECRET_CLIENT;
+  }
+
   public getOneSignal(): any {
     if (CONFIG.ONE_SIGNAL === undefined)
       return '';

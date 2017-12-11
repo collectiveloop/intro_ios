@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, App } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfigService }   from '../../lib/config.service';
 import { MessageService } from '../../lib/messages.service';
 import { HttpService }   from '../../lib/http.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,7 +17,7 @@ export class FormContactUsPage {
   loadingMessage:string = '';
   successContactUsMessage:string = '';
 
-  constructor(public navCtrl: NavController, public app: App, private formBuilder: FormBuilder, private configService: ConfigService, private httpService: HttpService, private translateService: TranslateService, public messages: MessageService) {
+  constructor(public navCtrl: NavController, public app: App, private formBuilder: FormBuilder, private httpService: HttpService, private translateService: TranslateService, public messages: MessageService) {
     this.buildValidations();
     this.submitted = false;
     this.firstSubmitted = false;

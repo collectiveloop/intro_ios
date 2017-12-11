@@ -100,8 +100,8 @@ import { FormContactUsPage } from '../pages/contact_us/form_contact_us';
     ElasticModule,
     IonicModule.forRoot(MyApp,{
       tabsPlacement: 'bottom',
-      scrollAssist: false,
-      autoFocusAssist: false,
+      scrollAssist: true,
+      autoFocusAssist: true,
       scrollPadding: false,
       platforms:{
         android:{tabsPlacement: 'bottom'},

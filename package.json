@@ -51,7 +51,9 @@
     "cordova-android": "^6.2.3",
     "cordova-android-support-gradle-release": "^1.1.5",
     "cordova-browser": "^4.1.0",
+    "cordova-ios": "^4.5.4",
     "cordova-plugin-app-event": "^1.2.1",
+    "cordova-plugin-badge": "^0.8.5",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-console": "^1.1.0",
@@ -83,10 +85,10 @@
     "ionicons": "^3.0.0",
     "onesignal-cordova-plugin": "^2.2.2",
     "phonegap-plugin-local-notification": "^1.0.1",
+    "phonegap-plugin-push": "^2.1.2",
     "rxjs": "5.4.0",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.12",
-    "cordova-ios": "~4.5.4"
+    "zone.js": "0.8.12"
   },
   "devDependencies": {
     "@ionic/app-scripts": "2.1.4",
@@ -95,7 +97,6 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-console": {},
       "cordova-plugin-device": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
@@ -120,9 +121,6 @@
       "com.synconset.imagepicker": {
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": " "
       },
-      "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "243179874931-beqb80o5867005il5jgpp64h1cigp1cv.apps.googleusercontent.com"
-      },
       "cordova-plugin-facebook4": {
         "APP_ID": "144792272803845",
         "APP_NAME": "sappitotech.ionic.introapp"
@@ -139,12 +137,17 @@
       "cordova-plugin-linkedin": {
         "APP_ID": "4929693"
       },
-      "onesignal-cordova-plugin": {}
+      "onesignal-cordova-plugin": {},
+      "cordova-plugin-badge": {},
+      "phonegap-plugin-push": {},
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1004760983227-2injgkf1tq4b8mi2te3fsfbj69ml977n"
+      },
+      "cordova-plugin-console": {}
     },
     "platforms": [
       "android",
-      "browser",
-      "ios"
+      "browser"
     ]
   }
 }

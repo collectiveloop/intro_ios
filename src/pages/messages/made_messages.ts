@@ -124,7 +124,6 @@ export class MadeMessagesPage {
     this.messages.closeMessage();
     this.page++;
     let intros = response.data.intros;
-    let id_user = response.data.id_user;
     let introsLength = intros.length;
     for (let i = 0; i < introsLength; i++) {
       if (intros[i]['friend_1_image_profile'] !== undefined && intros[i]['friend_1_image_profile'] !== null && intros[i]['friend_1_image_profile'] !== '') {

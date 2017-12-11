@@ -6,7 +6,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MessageService } from '../../lib/messages.service';
 import { ConfigService } from '../../lib/config.service';
 import { DetailIntrosPage } from '../intros/detail_intros';
-import { MadeMessagesPage } from '../messages/made_messages';
 import { ChatMessagesPage } from '../messages/chat_messages';
 import { SessionService } from '../../lib/session.service';
 import { UtilService } from '../../lib/utils.service';
@@ -144,6 +143,8 @@ export class ReceivedMessagesPage {
         this.loadImage(intros[i], 'user');
 
       intros[i]['user_name'] = intros[i]['user_user_name'];
+      intros[i]['first_name'] = intros[i]['user_first_name'];
+      intros[i]['last_name'] = intros[i]['user_last_name'];
 
       //buscamos a la otra pérsona que invitaron a la intro, que no sea el usuario de la app
       intros[i]['other_image_loaded'] = false;
@@ -159,6 +160,8 @@ export class ReceivedMessagesPage {
         }
 
         intros[i]['other_user_name'] = intros[i]['user_1_user_name'];
+        intros[i]['other_first_name'] = intros[i]['user_1_first_name'];
+        intros[i]['other_last_name'] = intros[i]['user_1_last_name'];
       } else {
         if (intros[i]['user_2_image_profile'] !== undefined && intros[i]['user_2_image_profile'] !== null && intros[i]['user_2_image_profile'] !== '') {
           if (intros[i]['user_2_image_profile'].indexOf('http') === -1)
@@ -171,6 +174,8 @@ export class ReceivedMessagesPage {
           intros[i]['other_image_profile'] = this.sanitizer.bypassSecurityTrustStyle('url(' + this.configService.getProfileImage() + ')');
         }
         intros[i]['other_user_name'] = intros[i]['user_2_user_name'];
+        intros[i]['other_first_name'] = intros[i]['user_2_first_name'];
+        intros[i]['other_last_name'] = intros[i]['user_2_last_name'];
       }
       if (intros[i]['other_image_loaded'] === false)
         this.loadImage(intros[i], 'other');

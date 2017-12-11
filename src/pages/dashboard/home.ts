@@ -9,6 +9,7 @@ import { LoginPage } from '../../pages/login/login';
 import { SessionService } from '../../lib/session.service';
 import { MadeIntrosPage } from '../../pages/intros/made_intros';
 import { ReceivedIntrosPage } from '../../pages/intros/received_intros';
+import { TabService } from '../tabs/tabs.service';
 
 @Component({
   selector: 'home',
@@ -40,7 +41,7 @@ export class HomePage implements OnInit {
   route: string = '';
   profileImages: string = '';
 
-  constructor(public app: App, public navCtrl: NavController, private httpService: HttpService, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, private sessionService: SessionService, public sanitizer: DomSanitizer) {
+  constructor(public app: App, public navCtrl: NavController, private httpService: HttpService, private translateService: TranslateService, private configService: ConfigService, public messages: MessageService, private sessionService: SessionService, public sanitizer: DomSanitizer, public tabService:TabService) {
   }
 
   public ngOnInit(): void {
@@ -65,25 +66,29 @@ export class HomePage implements OnInit {
   ionViewWillEnter(): void {
     this.ready = false;
     console.log("ionViewWillEnter");
-    this.sessionService.getSessionStatus().then(function(result) {
-      if (result !== false) {
-        //evaluamos a donde vamos a ir, si nos han pedido redireccion desde el app.component
-        let destiny = this.sessionService.getDestinySession();
-        if (destiny.params !== undefined && destiny.params.section !== undefined && destiny.params.section !== null && destiny.params.index !== undefined && destiny.params.index !== null) {
-          if(ReceivedIntrosPage===destiny.params.section){
-            this.gotoReceivedIntroDetail({id:''});
-          }else{
-            this.navCtrl.parent.select(destiny.params.index);
+    if(!this.tabService.getNotRefresh()){
+      this.sessionService.getSessionStatus().then(function(result) {
+        if (result !== false) {
+          //evaluamos a donde vamos a ir, si nos han pedido redireccion desde el app.component
+          let destiny = this.sessionService.getDestinySession();
+          if (destiny.params !== undefined && destiny.params.section !== undefined && destiny.params.section !== null && destiny.params.index !== undefined && destiny.params.index !== null) {
+            if(ReceivedIntrosPage===destiny.params.section){
+              this.gotoReceivedIntroDetail({id:''});
+            }else{
+              this.navCtrl.parent.select(destiny.params.index);
+            }
+            return;
+          } else {
+            this.sessionService.cleanDestinySession();
+            this.getDashBoard();
           }
-          return;
         } else {
-          this.sessionService.cleanDestinySession();
-          this.getDashBoard();
+          this.app.getRootNav().setRoot(LoginPage);
         }
-      } else {
-        this.app.getRootNav().setRoot(LoginPage);
-      }
-    }.bind(this));
+      }.bind(this));
+    }else{
+      this.tabService.setNotRefresh(false);
+    }
   }
 
   public getDashBoard(): void {

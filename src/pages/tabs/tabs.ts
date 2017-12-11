@@ -8,7 +8,6 @@ import { LoginPage } from '../login/login';
 import { MenuController, NavController, NavParams } from 'ionic-angular';
 import { SessionService } from '../../lib/session.service';
 
-
 @Component({
   templateUrl: 'tabs.html'
 })

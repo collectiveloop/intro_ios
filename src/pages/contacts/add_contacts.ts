@@ -1,17 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { Contacts } from '@ionic-native/contacts';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ModalController, NavController, NavParams, App, Platform } from 'ionic-angular';
+import { NavController, NavParams, App, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfigService } from '../../lib/config.service';
 import { MessageService } from '../../lib/messages.service';
 import { HttpService } from '../../lib/http.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ListContactsPage } from './list_contacts';
-import { ListContactsPendingPage } from './list_contacts_pending';
 import { GooglePlusContactsPage } from './googleplus_contacts';
-import { AddIntrosPage } from '../intros/add_intros';
 
 @Component({
   selector: 'page-add-contact',
@@ -42,10 +39,11 @@ export class AddContactsPage {
   modeGooglePlus: boolean = false;
   modeLinkedin: boolean = false;
 
-  constructor(public navCtrl: NavController, public app: App, private configService: ConfigService, private httpService: HttpService, private translateService: TranslateService, public navParams: NavParams, private platform: Platform, public messages: MessageService, public formBuilder: FormBuilder, public contacts: Contacts, public sanitizer: DomSanitizer, public modal: ModalController, private storage: Storage) {
+  constructor(public navCtrl: NavController, public app: App, private configService: ConfigService, private httpService: HttpService, private translateService: TranslateService, public navParams: NavParams, private platform: Platform, public messages: MessageService, public formBuilder: FormBuilder, public contacts: Contacts, public sanitizer: DomSanitizer, private storage: Storage) {
     this.imageLoaded = true;
-    if (this.navParams.get('destiny') === undefined || this.navParams.get('destiny') === null || this.navParams.get('destiny') === '')
+    if (this.navParams.get('destiny') === undefined || this.navParams.get('destiny') === null || this.navParams.get('destiny') === ''){
       this.navCtrl.pop();
+    }
 
     this.destiny = this.navParams.get('destiny');
     if (this.navParams.get('intros') !== undefined && this.navParams.get('intros') !== null && this.navParams.get('target') !== undefined && this.navParams.get('target') !== null){
@@ -67,9 +65,9 @@ export class AddContactsPage {
     }
 
     if (this.platform.is('cordova')) {
-      //this.isDevice = true;
+      this.isDevice = true;
     } else {
-      //this.isDevice = false;
+      this.isDevice = false;
     }
 
     this.storage.get('mode_facebook').then((data) => {
@@ -77,24 +75,21 @@ export class AddContactsPage {
         this.modeFacebook = true;
       else
         this.modeFacebook = false;
-    }
-    );
+    });
 
     this.storage.get('mode_linkedin').then((data) => {
       if (data === true)
         this.modeLinkedin = true;
       else
         this.modeLinkedin = false;
-    }
-    );
+    });
 
     this.storage.get('mode_google_plus').then((data) => {
       if (data === true)
         this.modeGooglePlus = true;
       else
         this.modeGooglePlus = false;
-    }
-    );
+    });
 
     this.route = this.configService.getDomainImages() + '/profiles/';
     this.ready = true;
@@ -108,8 +103,7 @@ export class AddContactsPage {
     this.translateService.get('INVALID_FULL_NAME').subscribe(
       value => {
         this.requiredMessages['INVALID_FULL_NAME'] = value;
-      }
-    );
+      });
 
     this.translateService.get('LOADING').subscribe(
       value => {
@@ -320,9 +314,8 @@ export class AddContactsPage {
     });
   }
 
-  public getFacebookContact(): void {
-    let profileModal = this.modal.create(GooglePlusContactsPage, { destiny: 'add_contacts' });
-    profileModal.present();
+  public getGoogleContact(): void {
+    this.navCtrl.push(GooglePlusContactsPage, { destiny: 'add_contacts',contactForm:  this.contactForm });
   }
 
   public backAction(): void {

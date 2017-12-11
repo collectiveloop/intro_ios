@@ -19,6 +19,11 @@
     <form [formGroup]="loginForm">
       <ion-row>
         <ion-col col-12 class="center">
+          <span class="error center" [innerHTML]="test | json"></span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 class="center">
           <span class="error center" [innerHTML]="errorLogin"></span>
         </ion-col>
       </ion-row>

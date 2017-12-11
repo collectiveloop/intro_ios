@@ -9,7 +9,6 @@ import { ListContactsPage } from './list_contacts';
 import { ProfileContactsPage } from './profile_contact';
 import { AddContactsPage } from './add_contacts';
 import { SearchContactsPage } from './search_contacts';
-import { ContactService } from '../../lib/contacts.service';
 import { SessionService } from '../../lib/session.service';
 
 @Component({

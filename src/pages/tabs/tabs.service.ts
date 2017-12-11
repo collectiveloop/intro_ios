@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export class TabService {
     tabsMenu:object ={'HOME':'HOME','CONTACTS':'CONTACTS','INTROS':'INTROS','MESSAGES':'MESSAGES','SETTINGS':'SETTINGS','MORE':'MORE'};
     showTab:boolean;
+    notRefresh:boolean = false;
     constructor() {}
 
     public getSection(section:string): string {
@@ -24,6 +25,14 @@ export class TabService {
     public setShowTab(value:boolean): void {
       this.showTab = value;
       this.changeShowBar();
+    }
+
+    public getNotRefresh(): boolean {
+      return this.notRefresh;
+    }
+
+    public setNotRefresh(value:boolean): void {
+      this.notRefresh = value;
     }
 
     private changeShowBar(): void{

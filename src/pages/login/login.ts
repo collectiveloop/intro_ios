@@ -61,7 +61,7 @@ export class LoginPage {
     this.externalLogin = false;
     this.loginForm = this.formBuilder.group({
       //user: ['renshocontact@gmail.com', Validators.compose([Validators.minLength(5), Validators.required])],
-      //password: ['987654321', Validators.compose([Validators.minLength(8), Validators.maxLength(15), Validators.required])]
+      //password: ['12345678', Validators.compose([Validators.minLength(8), Validators.maxLength(15), Validators.required])]
       user: ['', Validators.compose( [Validators.minLength(5), Validators.required]) ] ,
       password: ['', Validators.compose([Validators.minLength(8),Validators.maxLength(15), Validators.required]) ]
     });
@@ -360,8 +360,9 @@ export class LoginPage {
       }else{
         this.submitted = false;
         this.externalLogin = false;
+        console.log('tratando de cerrar sesion');
+        this.sessionService.googlePlusLogOut();
       }
-
     }.bind(this), function(error) {
       this.errorLogin = error;
       this.submitted = false;
@@ -376,6 +377,7 @@ export class LoginPage {
     this.messages.closeMessage();
     if (response !== undefined && response.status !== undefined && response.status === 'error') {
       this.errorLogin = response.data.message;
+
       console.log('error', response);
     } else {
       console.log('good', response);

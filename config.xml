@@ -92,8 +92,6 @@
     <allow-navigation href="http://192.168.1.143:8101" />
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="^4.1.0" />
-    <engine name="ios" spec="~4.5.4" />
-    <plugin name="cordova-plugin-console" spec="^1.1.0" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.1.0" />
     <plugin name="cordova-plugin-statusbar" spec="^2.3.0" />
@@ -118,9 +116,6 @@
     <plugin name="com.synconset.imagepicker" spec="^2.1.10">
         <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="243179874931-beqb80o5867005il5jgpp64h1cigp1cv.apps.googleusercontent.com" />
-    </plugin>
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="144792272803845" />
         <variable name="APP_NAME" value="sappitotech.ionic.introapp" />
@@ -138,4 +133,10 @@
         <variable name="APP_ID" value="4929693" />
     </plugin>
     <plugin name="onesignal-cordova-plugin" spec="^2.2.2" />
+    <plugin name="cordova-plugin-badge" spec="^0.8.5" />
+    <plugin name="phonegap-plugin-push" spec="^2.1.2" />
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1004760983227-2injgkf1tq4b8mi2te3fsfbj69ml977n" />
+    </plugin>
+    <plugin name="cordova-plugin-console" spec="^1.1.0" />
 </widget>

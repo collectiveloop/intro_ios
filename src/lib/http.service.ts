@@ -3,6 +3,7 @@ import { Http, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { ConfigService } from './config.service';
 import { MessageService } from './messages.service';
 import { Storage } from '@ionic/storage';
+import xml2js from 'xml2js';
 import { App } from 'ionic-angular';
 
 /*
@@ -70,9 +71,9 @@ export class HttpService {
   private headers: any;
   private search: any;
   private app: App;
-  private login:any;
+  private login: any;
 
-  constructor(private http: Http, private configService: ConfigService, private storage: Storage, public messages: MessageService){}
+  constructor(private http: Http, private configService: ConfigService, private storage: Storage, public messages: MessageService) { }
 
   public setParams(params: any): void {
     this.success = params.success;
@@ -95,8 +96,12 @@ export class HttpService {
     this.options = new RequestOptions();
     this.headers = new Headers();
     this.search = new URLSearchParams();
-    if (this.getTokenProvider() !== '' && isExternal === -1) {
-      this.headers.append('Authorization', ' Bearer ' + this.getTokenProvider());
+    if (params.bearToken !== undefined && params.bearToken !== null && params.bearToken !== '') {
+      this.headers.append('Authorization', ' Bearer ' + params.bearToken);
+    } else {
+      if (this.getTokenProvider() !== '' && isExternal === -1) {
+        this.headers.append('Authorization', ' Bearer ' + this.getTokenProvider());
+      }
     }
     this.options.headers = this.headers;
 
@@ -132,7 +137,11 @@ export class HttpService {
         function(token: any) {
           this.setTokenProvider(token);
           this.setParams(params);
-          this.sendGet();
+          if (params.type !== undefined && params.type !== null && params.type == 'xml') {
+            this.sendGetXml();
+          } else {
+            this.sendGet();
+          }
         }.bind(this)
       );
     }
@@ -144,7 +153,7 @@ export class HttpService {
       .subscribe(this.successCallBack.bind(
         {
           success: this.success.bind(this.context),
-          setToken:this.setToken.bind(this)
+          setToken: this.setToken.bind(this)
         }), this.errorCallBack.bind(
           {
             error: this.error.bind(this.context),
@@ -152,11 +161,34 @@ export class HttpService {
             storage: this.storage,
             messages: this.messages,
             getLogin: this.getLogin.bind(this),
-            setToken:this.setToken.bind(this)
+            setToken: this.setToken.bind(this)
           }), this.finallyCallBack.bind(
+            {
+              finally: this.finally
+            })
+      );
+  }
+
+  public sendGetXml(): void {
+    this.http.get(this.url, this.options)
+      .map(res => res.text())
+      .subscribe(this.successXmlCallBack.bind(
+        {
+          success: this.success.bind(this.context),
+          parseXML:this.parseXML,
+          setToken: this.setToken.bind(this)
+        }), this.errorCallBack.bind(
           {
-            finally: this.finally
-          })
+            error: this.error.bind(this.context),
+            app: this.app,
+            storage: this.storage,
+            messages: this.messages,
+            getLogin: this.getLogin.bind(this),
+            setToken: this.setToken.bind(this)
+          }), this.finallyCallBack.bind(
+            {
+              finally: this.finally
+            })
       );
   }
 
@@ -197,7 +229,7 @@ export class HttpService {
       .subscribe(this.successCallBack.bind(
         {
           success: this.success.bind(this.context),
-          setToken:this.setToken.bind(this)
+          setToken: this.setToken.bind(this)
         }), this.errorCallBack.bind(
           {
             error: this.error.bind(this.context),
@@ -205,7 +237,7 @@ export class HttpService {
             storage: this.storage,
             messages: this.messages,
             getLogin: this.getLogin.bind(this),
-            setToken:this.setToken.bind(this)
+            setToken: this.setToken.bind(this)
           }), this.finallyCallBack.bind(
             {
               finally: this.finally
@@ -251,7 +283,7 @@ export class HttpService {
       .subscribe(this.successCallBack.bind(
         {
           success: this.success.bind(this.context),
-          setToken:this.setToken.bind(this)
+          setToken: this.setToken.bind(this)
         }), this.errorCallBack.bind(
           {
             error: this.error.bind(this.context),
@@ -259,7 +291,7 @@ export class HttpService {
             storage: this.storage,
             messages: this.messages,
             getLogin: this.getLogin.bind(this),
-            setToken:this.setToken.bind(this)
+            setToken: this.setToken.bind(this)
           }), this.finallyCallBack.bind(
             {
               finally: this.finally
@@ -307,7 +339,7 @@ export class HttpService {
       .subscribe(this.successCallBack.bind(
         {
           success: this.success.bind(this.context),
-          setToken:this.setToken.bind(this)
+          setToken: this.setToken.bind(this)
         }), this.errorCallBack.bind(
           {
             error: this.error.bind(this.context),
@@ -315,7 +347,7 @@ export class HttpService {
             storage: this.storage,
             messages: this.messages,
             getLogin: this.getLogin.bind(this),
-            setToken:this.setToken.bind(this)
+            setToken: this.setToken.bind(this)
           }), this.finallyCallBack.bind(
             {
               finally: this.finally
@@ -351,13 +383,35 @@ export class HttpService {
     this.success(response);
   }
 
+  private successXmlCallBack(response: any): void {
+    this.parseXML(response)
+    .then((data) => {
+      this.success(data);
+    });
+  }
+
+  private parseXML(data: any): any {
+    console.log('parseXML');
+    return new Promise(resolve => {
+      let  parser = new xml2js.Parser(
+      {
+        trim: true,
+        explicitArray: true
+      });
+
+      parser.parseString(data, (err, result) => {
+        resolve(result);
+      });
+    });
+  }
+
   private errorCallBack(error: any): void {
     var errorDetail;
     try {
       errorDetail = JSON.parse(error._body);
     } catch (e) { }
 
-    if ((errorDetail !== null && errorDetail !== undefined && (errorDetail.status === 'error' && errorDetail.data.type === 'session') ) || errorDetail===undefined  ) {
+    if ((errorDetail !== null && errorDetail !== undefined && (errorDetail.status === 'error' && errorDetail.data.type === 'session')) || errorDetail === undefined) {
       this.storage.remove('token');
       this.messages.closeMessage();
       this.app.getRootNav().setRoot(this.getLogin());
@@ -385,7 +439,7 @@ export class HttpService {
     return this.tokenProvider;
   }
 
-  public setLogin(login:any): void {
+  public setLogin(login: any): void {
     console.log("asignnado");
     console.log(login);
     this.login = login;

@@ -28,7 +28,7 @@
         </div>
       </ion-thumbnail>
       <h3>{{intro.created_at}}</h3>
-      <h2 class="padding-right">{{intro.user_name}} {{'INTRODUCED_YOU' | translate}} {{'TO' | translate}} {{intro.other_user_name}}</h2>
+      <h2 class="padding-right">{{intro.first_name}} {{intro.last_name}} {{'INTRODUCED_YOU' | translate}} {{'TO' | translate}} {{intro.other_first_name}} {{intro.other_last_name}}</h2>
     </ion-item>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="moreMessages($event)">
